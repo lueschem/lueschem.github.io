@@ -8,3 +8,5 @@ main:
     url: https://github.com/lueschem/edi-examples
   - title: "Source Code"
     url: https://github.com/lueschem/edi
+  - title: "Blog"
+    url: /blog/
