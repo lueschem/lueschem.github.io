@@ -52,7 +52,7 @@ This is where Linux containers come to the rescue:
 
 ## Linux Container Workflow
 
-Let us imagine, that you have chosen Ubuntu for your development host and that you are planning to operate
+Let us imagine that you have chosen Ubuntu for your development host and that you are planning to operate
 your target system with a minimal [Debian](https://www.debian.org/) installation.
 
 The best way to develop software for a Debian system is to use a Debian system. Therefore we equip our
@@ -123,3 +123,7 @@ containers to a target system to get the best possible separation of concerns.
 Linux containers are a perfect match for many embedded products and their development. The technology is still quite
 young but I am convinced that it will become commonplace over the next five years - even in the rather
 conservative area of embedded software development.
+
+To answer the initial question:  
+Depending on your requirements and constraints, Linux containers might help to speed up your development process for
+embedded systems!
