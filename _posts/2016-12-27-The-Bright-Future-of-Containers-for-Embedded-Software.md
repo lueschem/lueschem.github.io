@@ -1,6 +1,7 @@
 ---
 author: matthias_luescher
 author_profile: true
+comments: true
 ---
 
 Some three years ago I asked myself:  
