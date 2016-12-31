@@ -8,7 +8,7 @@ Some three years ago I asked myself:
 What is the most efficient way to develop software for embedded devices?
 
 Of course, there is no general answer to this question since different projects have completely
-different requirements and constraints. On the projects that I have been working, I always had
+different requirements and constraints. On the projects that I have been working, I always faced
 rather complex requirements on one hand but on the other hand the hardware constraints were quite
 relaxed (plenty of CPU power, RAM and storage). For an engineer, this is a great starting
 position since you are challenged to
@@ -39,13 +39,13 @@ When developing for a Linux distribution, the development host is also your targ
 
 ![self contained workflow](/assets/images/blog/self-contained-cycle.png){:class="img-responsive"}
 
-This is very easy to handle but it comes with a great drawback: As a software developer you tend to
+This is straightforward but it comes with a great drawback: As a software developer you tend to
 upgrade your development host to the latest and greatest release of your favorite Linux
 distribution. Unfortunately the customers that are using your embedded systems might be more conservative
 about upgrading their systems. Furthermore your favourite Linux distribution might not be the best choice
 for embedded devices.
 
-To put it short: The "self contained" workflow is very easy to handle but it can not be directly applied
+To put it short: The "self contained" workflow is convincingly simple but it can not be directly applied
 to embedded software development.
 
 This is where Linux containers come to the rescue:
@@ -75,7 +75,9 @@ I see at least benefits in the following areas:
 
 ### Development
 
-- On my development host I can easily run a Debian Jessie alongside a Debian stretch - without rebooting. 
+- Thanks to containers, I can easily run multiple different OS instances on my development host. This is especially helpful
+if I do some feature development on the latest version of a container (e.g. Debian stretch based) and some bug fixing on a 
+stable release that is based on an older version of a container (e.g. Debian jessie based).
 - In contrast to a chroot, I can safely run a full init system such as [systemd](https://en.wikipedia.org/wiki/Systemd)
 within my container (given that I choose a technology such as [LXC/LXD](https://linuxcontainers.org) - Docker and
 systemd are currently not friends).
@@ -83,8 +85,8 @@ systemd are currently not friends).
 - Given that the kernel of the development host is [PREEMPT_RT](https://wiki.linuxfoundation.org/realtime/start)
 patched, I can also do real time in the development container.
 - With a proper container setup I can make sure, that the container behaviour is very similar to the behaviour 
-of the target system. For example thanks to the own networking namespace of the container I can already assign
-the network interface names of the future target system and I can even test my iptables setup.
+of the target system. For example thanks to the own networking namespace of the container it is possible to already assign
+the network interface names of the future target system and even the iptables setup can be tested out.
 - Containers enable me to do most of the development even without the availability of the target hardware. This
 enables simultaneous engineering and reduces time to market.
 
@@ -98,22 +100,23 @@ host.
 
 ### Deployment
 
-At first, I was only using containers on my development host and I never used them to ship my software on
+At first, I was only using containers on my development host and I never used them to ship software on
 target systems. Since containers are lightweight enough, I am sure that we will see them more and more on future
 embedded products:
 
-Containers will allow us to decouple the software stack from the Linux solution of the hardware vendor:
+Containers will allow us to decouple the application software stack from the Linux package of the hardware vendor:
 Most of the hardware vendors sell their (ARM) boards with a yocto based board support package that is derived from
 some hopefully recent yocto release. My suggestion is,
-that the hardware vendors only make sure that they deliver the best possible support for their hardware over a
-industry friendly time period. For security reasons, they should provide kernel updates and updates to their
-minimal user space. To make the life of the hardware vendors easier, they are allowed to do "rolling releases"
-based on the latest yocto releases. To make the life of the application developers easier, I suggest that they run
-their application within their preferred container. The six month
-[release cycle of yocto](https://wiki.yoctoproject.org/wiki/Releases) might be too fast for them and
-therefore they might be happier with a Debian container that is 
-[supported for about five years](https://wiki.debian.org/LTS). With this approach, the minimal yocto base system serves
-as the lxc container host.
+that hardware vendors concentrate on delivering a minimal board support package for their hardware which gets
+regularly updated over an industry friendly time period. To make the life of the hardware vendors easier, 
+they are allowed to do "rolling releases" based on the latest yocto releases. 
+The six month ["rolling" release cycle of yocto](https://wiki.yoctoproject.org/wiki/Releases) is often too fast for
+developing stable applications for embedded devices.
+Application development might be more efficient in a Debian container that is 
+[supported for about five years](https://wiki.debian.org/LTS).  
+To summarize the approach: the yocto powered base system gives the hardware vendor the ability to quickly support
+new hardware. At the same time the application developer enjoys a stable container based environment with long
+term support.
  
 On very complex deployments with multiple involved companies it might even make sense to deploy multiple
 containers to a target system to get the best possible separation of concerns.
@@ -126,4 +129,4 @@ conservative area of embedded software development.
 
 To answer the initial question:  
 Depending on your requirements and constraints, Linux containers might help to speed up your development process for
-embedded systems!
+embedded systems! It is a good time to get familiar with this powerful technology.
