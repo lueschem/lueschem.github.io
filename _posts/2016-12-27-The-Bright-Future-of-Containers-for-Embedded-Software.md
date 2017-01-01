@@ -115,8 +115,8 @@ developing stable applications for embedded devices.
 Application development might be more efficient in a Debian container that is 
 [supported for about five years](https://wiki.debian.org/LTS).  
 To summarize the approach: the yocto powered base system gives the hardware vendor the ability to quickly support
-new hardware. At the same time the application developer enjoys a stable container based environment with long
-term support.
+new hardware. At the same time the application developer enjoys a stable container based development and deployment 
+environment with long term support.
  
 On very complex deployments with multiple involved companies it might even make sense to deploy multiple
 containers to a target system to get the best possible separation of concerns.
