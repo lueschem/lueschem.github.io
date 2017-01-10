@@ -1,6 +1,7 @@
 ---
 author: matthias_luescher
 author_profile: true
+description: "Depending on your requirements and constraints, Linux containers might help to speed up your development process for embedded systems! It is a good time to get familiar with this powerful technology."
 comments: true
 ---
 
