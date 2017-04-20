@@ -31,8 +31,8 @@ edi config init debian-jessie-amd64 debian-jessie-amd64
 sudo edi -v lxc configure debian-jessie-amd64 debian-jessie-amd64-develop.yml
 ```
 
-For the next few steps we will enter the container (please check [this documentation](http://docs.get-edi.io/en/latest/getting_started.html) 
-for details) and install some additional software:
+For the next few steps we will enter the container (password is _ChangeMe!_, please check [this documentation](http://docs.get-edi.io/en/latest/getting_started.html) 
+if you are interested in more details) and install some additional software:
 
 ``` bash
 lxc exec debian-jessie-amd64 -- login $USER
@@ -42,7 +42,7 @@ sudo apt install dpkg-dev devscripts m4 bc vim
 Now it is time to adjust ```/etc/apt/sources.list``` within the container by adding a line such as
 ```deb-src http://ftp.ch.debian.org/debian/ jessie main```.
  
-Using the following commands we will get the source code of openssl for the current Debian installation (in our case openssl-1.0.1t):
+The following commands will fetch the source code of openssl for the current Debian installation (in our case openssl-1.0.1t):
 
 ``` bash
 sudo apt update
@@ -51,13 +51,13 @@ apt-get source libssl1.0.0
 cd openssl-1.0.1t
 ```
 
-Now it is time to start the Debian package build:
+Finally it is time to start the Debian package build:
 
 ``` bash
 time debuild -us -uc
 ```
 
-It took slightly less than **5 minutes** to get everything done on my notebook that has an i7-7500U (Kaby Lake) CPU and the
+It took slightly less than **5 minutes** to get everything done on my notebook that is powered by an i7-7500U (Kaby Lake) CPU and the
 result were two amd64 Debian packages that are obviously not installable on the Raspberry Pi due to its ARM architecture.
 
 ## Native Compilation on the Raspberry Pi
@@ -109,12 +109,95 @@ It was now time to scratch my head and remember my past when I was working with 
 
 ## Cross Compilation Within a Native Container
 
+We return into our _debian_jessie_amd64_ container and pimp it with a cross compiler. As of Debian jessie cross compilers
+are not part of the main repository and therefore we have to activate an additional repository:
+
+First we add an additional line to our ```/etc/apt/sources.list``` which reads as follows: 
+```deb http://emdebian.org/tools/debian/ jessie main``` and then we install the required archive key:
+
+```
+curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | sudo apt-key add -
+```
+
+The security aware reader will notice that we should actually rather fetch such keys from a _https_ source.
+
+Many people have done a great job that will allow us to do the following step: A Debian based installation is aware of 
+[multiple architectures](https://wiki.debian.org/Multiarch/HOWTO) and therefore we can enable armhf as a foreign architecture:
+ 
+``` bash
+sudo dpkg --add-architecture armhf
+```
+
+This will allow us to install armhf libraries alongside the amd64 libraries.
+
+It is now time to update the apt cache:
+
+``` bash
+sudo apt update
+```
+
+If you now directly try to install the ```crossbuild-essential-armhf``` package you will receive the following error message:
+
+```
+The following packages have unmet dependencies:
+ crossbuild-essential-armhf : Depends: libc6-dev:armhf but it is not installable
+                              Depends: gcc-arm-linux-gnueabihf (>= 4.9.1-1) but it is not going to be installed
+                              Depends: g++-arm-linux-gnueabihf (>= 4.9.1-1) but it is not going to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+
+This is due to the fact that _-dev_ packages of multiple architectures can not be installed side by side.
+
+Therefore we remove the following two _-dev_ packages:
+
+``` bash
+sudo apt purge linux-libc-dev libc6-dev
+```
+
+Please note that this command will also remove the _g++_ compiler. If you think that you still need the _g++_ compiler later on then you
+might want to clone the container by using the ```lxc copy ...``` command.
+
+Finally we are ready to install the gcc based cross toolchain:
+
+``` bash
+sudo apt install crossbuild-essential-armhf
+```
+
+Again we want to build openssl and therefore we re-fetch the source code:
+
+``` bash
+cd edi-workspace
+mv openssl-1.0.1t openssl-1.0.1t.old
+apt-get source libssl1.0.0
+cd openssl-1.0.1t
+```
+
+And anxiously waiting for the result we start the cross compilation:
+
+``` bash
+export DEB_BUILD_OPTIONS=nocheck; time debuild -us -uc -aarmhf
+```
+
+Great - only about **5 minutes**! This build was seven times faster than on the Raspberry Pi 3 Model B! 
+
+Unfortunately it is too early
+to celebrate. The Raspbian binaries are built with slightly different compiler options than those we have just been using right now.
+**Therefore do not install those packages on your Raspbian installation!** 
+
+Bob would now ask the following question: "Can we fix it?" And the whole team knows the answer: "Yes we can!"
+
+I will show the necessary steps in my next blog post!
 
 
+## Conclusion
+
+Cross compilation can speed up your development cycles for embedded devices. The Debian/Ubuntu community has done a great job by
+introducing [multiarch](https://wiki.debian.org/Multiarch/HOWTO) within recent versions of their distributions. It makes cross
+compiling very sleek.
+
+If you stumble upon a piece of software that does not want to be cross compiled - unfortunately this might happen - you are still
+able to compile it within an emulated container or on the real hardware.
 
 
-
-
-"Can we fix it?" - "Yes we can!"
 
 
