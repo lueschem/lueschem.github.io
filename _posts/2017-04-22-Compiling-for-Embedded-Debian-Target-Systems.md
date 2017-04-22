@@ -95,7 +95,7 @@ edi config init raspbian-jessie-armhf raspbian-jessie-armhf
 sudo edi -v lxc configure raspbian-jessie-armhf raspbian-jessie-armhf-develop.yml
 ```
 
-The setup of the _raspbian-jessie-armhf_ container takes considerably longer than for _debian-jessie-amd64_ container 
+The setup of the _raspbian-jessie-armhf_ container takes considerably longer than for the _debian-jessie-amd64_ container 
 due to the emulation.
 
 After the successful creation we reproduce the same steps as for the _debian-jessie-amd64_ container.
@@ -123,7 +123,7 @@ First we add an additional line to our ```/etc/apt/sources.list``` which reads a
 curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | sudo apt-key add -
 ```
 
-The security aware reader will notice that we should actually rather fetch such keys from a _https_ source.
+The security aware reader will notice that we should actually fetch such keys from a _https_ source.
 
 Many people have done a great job that will allow us to proceed with the next step: A Debian based installation is aware of 
 [multiple architectures](https://wiki.debian.org/Multiarch/HOWTO) and therefore we can enable armhf as a foreign architecture:
@@ -188,7 +188,7 @@ Unfortunately it is too early
 to celebrate. The Raspbian binaries are built with slightly different compiler options than those we have just been applying right now.
 **Therefore do not install those packages on your Raspbian installation!** 
 
-Bob would now ask the following question: "Can we fix it?" And the whole team knows the answer: "Yes we can!"
+Bob would now ask: "Can we fix it?" And the whole team knows the answer: "Yes we can!"
 
 I will show the necessary steps in my next blog post!
 
