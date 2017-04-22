@@ -140,27 +140,6 @@ It is now time to update the apt cache:
 sudo apt update
 ```
 
-If you now directly try to install the ```crossbuild-essential-armhf``` package you will receive the following error message:
-
-```
-The following packages have unmet dependencies:
- crossbuild-essential-armhf : Depends: libc6-dev:armhf but it is not installable
-                              Depends: gcc-arm-linux-gnueabihf (>= 4.9.1-1) but it is not going to be installed
-                              Depends: g++-arm-linux-gnueabihf (>= 4.9.1-1) but it is not going to be installed
-E: Unable to correct problems, you have held broken packages.
-```
-
-This is due to the fact that _-dev_ packages of multiple architectures can not be installed side by side.
-
-Therefore we remove the conflicting _-dev_ packages and their dependencies:
-
-``` bash
-sudo apt purge linux-libc-dev libc6-dev
-```
-
-Please note that this command will also remove the _g++_ compiler. If you do not want to get rid of the _g++_ compiler then you
-might want to clone the container by using the ```lxc copy ...``` command.
-
 Finally we are ready to install the [gcc](https://gcc.gnu.org/) based cross toolchain:
 
 ``` bash
