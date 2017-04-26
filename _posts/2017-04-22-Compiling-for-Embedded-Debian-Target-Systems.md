@@ -179,7 +179,7 @@ introducing [multiarch](https://wiki.debian.org/Multiarch/HOWTO) within recent v
 compiling very sleek.
 
 If you stumble upon a piece of software that persistently refuses to get cross compiled - unfortunately this might happen - you are still
-able to compile it within an emulated container or on the real hardware.
+able to compile it within an emulated container or on the target hardware.
 
 While cross compilation is typically done within a [chroot](https://en.wikipedia.org/wiki/Chroot), we use LXC/LXD containers instead.
 The overhead introduced by LXC/LXD is negligible and the added value is huge if you are planning to do additional stuff within the
