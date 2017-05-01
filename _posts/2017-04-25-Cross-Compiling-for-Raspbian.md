@@ -1,5 +1,44 @@
-container setup
+---
+author: matthias_luescher
+author_profile: true
+description: "Debian multiarch can be leveraged for speeding up the compilation of software for the Raspberry Pi."
+comments: true
+---
+
+![raspberry](/assets/images/blog/raspberry.png){:class="img-responsive"}
+
+As promised in the [previous blog post](/Compiling-for-Embedded-Debian-Target-Systems/) I will outline how we can leverage 
+[multiarch](https://wiki.debian.org/Multiarch/HOWTO) in order to speed up the compilation process for the 
+[Raspberry Pi]((http://www.raspberrypi.org)).
+
+[Raspbian](https://www.raspbian.org/) is mainly a recompiled Debian. The recompilation was necessary because the official 
+Debian armhf port requires an ARMv7-A capable CPU while the Pi 1 and Pi Zero is only equipped with an ARMv6 capable CPU. 
+
+I rather prefer to automate things instead of writing lengthy instructions and therefore a few steps will be sufficient
+to start the cross compiling adventure:
+
+Container Setup
 ---------------
+
+The following repository contains the container setup instructions:
+
+``` bash
+git clone https://github.com/lueschem/edi-raspbian.git
+cd edi-raspbian
+```
+
+Under the assumption that [edi is already installed](http://docs.get-edi.io/en/latest/getting_started.html), we can directly
+generate our mulitarch cross compilation container:
+
+``` bash
+edi -v lxc configure ...
+```
+
+
+
+
+
+
 
 compile hello world
 -------------------
@@ -72,7 +111,11 @@ compile and install kernel
 explanations
 ------------
 
+link to tagged files of edi-raspbian
 
 
 
+conclusion
+----------
 
+Not everything is yet as sweet as the raspberry pictured above. ...
