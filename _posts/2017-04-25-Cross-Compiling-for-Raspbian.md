@@ -5,11 +5,11 @@ description: "Debian multiarch can be leveraged for speeding up the compilation 
 comments: true
 ---
 
-![raspberry](/assets/images/blog/raspberry.png){:class="img-responsive"}
-
 As promised in the [previous blog post](/Compiling-for-Embedded-Debian-Target-Systems/) I will outline how we can leverage 
 [multiarch](https://wiki.debian.org/Multiarch/HOWTO) in order to speed up the compilation process for the 
 [Raspberry Pi]((http://www.raspberrypi.org)).
+
+![raspberry](/assets/images/blog/raspberry.png){:class="img-responsive"}
 
 [Raspbian](https://www.raspbian.org/) is mainly a recompiled Debian. The recompilation was necessary because the official 
 Debian armhf port requires an ARMv7-A capable CPU while the Pi 1 and Pi Zero are only equipped with an ARMv6 capable CPU. 
@@ -118,7 +118,7 @@ export DEB_BUILD_OPTIONS=nocheck; time debuild -us -uc -aarmhf
 
 As expected, this was seven times faster than on the Raspberry Pi 3 Model B.
 
-Now it is really time for the risky part of the game. We copy this library to the Raspberry Pi using ssh and we hope that the
+Now it is time for the risky part of the game. We copy this library to the Raspberry Pi using ssh and we hope that the
 subsequent installation will not brick our ssh access:
 
 ``` bash
@@ -145,19 +145,34 @@ The following example will show us some rough edges that we might hit here and t
 Recompilation of man-db
 -----------------------
 
+First we fetch the source code of man-db (the tools that deal with man pages). This was a truly random choice of a package
+that contains executables. Within the container _raspbian-jessie-cross_ we execute the following commands:
 
-
+``` bash
+cd ~/edi-workspace
 apt-get source man-db
+```
 
-lueschem@raspbian-cross-01:~/edi-workspace$ sudo apt-get build-dep -a armhf man-db
+man-db is slightly more complex than the openssl library and therefore we need some build dependencies:
+
+``` bash
+sudo apt-get build-dep -a armhf man-db
+```
+
+Unfortunately this fails:
+
+``` bash
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
 The following packages have unmet dependencies:
  zlib1g-dev:armhf : Depends: zlib1g:armhf (= 1:1.2.8.dfsg-2) but it is not going to be installed
 E: Build-dependencies for man-db could not be satisfied.
+```
 
-lueschem@raspbian-cross-01:~/edi-workspace$ apt-cache policy zlib1g
+Some further investigation using ```apt-cache policy zlib1g``` reveals
+
+``` bash
 zlib1g:
   Installed: 1:1.2.8.dfsg-2+b1
   Candidate: 1:1.2.8.dfsg-2+b1
@@ -165,43 +180,53 @@ zlib1g:
  *** 1:1.2.8.dfsg-2+b1 0
         500 http://httpredir.debian.org/debian/ jessie/main amd64 Packages
         100 /var/lib/dpkg/status
-lueschem@raspbian-cross-01:~/edi-workspace$
+```
 
+that the armhf package version (1:1.2.8.dfsg-2) does not fully match the amd64 package version (1:1.2.8.dfsg-2+b1) of the package 
+and therefore apt refuses to do the installation. Please do not blame Debian for this outcome since it was my decision to mix Debian 
+amd64 packages with Raspbian armhf packages. After a closer investigation of the version difference I learned something new about
+package versions: The ```+b1``` version suffix means that [a binary only rebuild (binNMU)](https://wiki.debian.org/binNMU) was triggered 
+on the amd64 platform for the zlib1g package. Debian seems to synchronize such binNMU rebuilds over all architectures and therefore we
+would not hit the above problem on a pure Debian multiarch installation.
+
+Luckily, in our case the workaround is quite simple. We will reproduce the binNMU rebuild for our Raspbian package:
+ 
+``` bash
 apt-get source zlib1g
-
 cd zlib-1.2.8.dfsg/
-
-dch --bin-nmu --distribution unstable
-
+dch --bin-nmu --distribution unstable ""
 export DEB_BUILD_OPTIONS=nocheck; time debuild -us -uc -aarmhf -B
+```
 
+And install the resulting packages:
+
+``` bash
 sudo dpkg -i ../zlib1g_1.2.8.dfsg-2+b1_armhf.deb
-
 sudo dpkg -i ../zlib1g-dev_1.2.8.dfsg-2+b1_armhf.deb
+```
 
+Now we have green lights for the man-db build:
+
+``` bash
 sudo apt-get build-dep -a armhf man-db
-
 cd ../man-db-2.7.0.2/
-
 debuild -us -uc -aarmhf
+```
 
+Out of curiosity we can install this package on the Raspberry Pi:
+
+``` bash
 scp ../man-db_2.7.0.2-5_armhf.deb pi@raspberrypi:
-
 ssh pi@raspberrypi
-
 sudo dpkg -i man-db_2.7.0.2-5_armhf.deb
-
-compile and install kernel
---------------------------
-
-explanations
-------------
-
-link to tagged files of edi-raspbian
+```
 
 
-
-conclusion
+Conclusion
 ----------
 
 Not everything is yet as sweet as the raspberry pictured above. ...
+
+build kernel
+
+
