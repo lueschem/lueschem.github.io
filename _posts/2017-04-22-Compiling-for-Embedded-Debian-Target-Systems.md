@@ -169,7 +169,7 @@ to celebrate. The Raspbian binaries are built with slightly different compiler o
 
 Bob would now ask: "Can we fix it?" And the whole team knows the answer: "Yes we can!"
 
-I will show the necessary steps in my next blog post!
+I will show the necessary steps in my [next blog post](/Cross-Compiling-for-Raspbian/)!
 
 
 ## Conclusion
