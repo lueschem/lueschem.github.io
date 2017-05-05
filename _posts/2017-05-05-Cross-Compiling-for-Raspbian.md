@@ -7,7 +7,7 @@ comments: true
 
 As promised in the [previous blog post](/Compiling-for-Embedded-Debian-Target-Systems/) I will outline how we can leverage 
 [multiarch](https://wiki.debian.org/Multiarch/HOWTO) in order to speed up the compilation process for the 
-[Raspberry Pi]((http://www.raspberrypi.org)).
+[Raspberry Pi](http://www.raspberrypi.org).
 
 ![raspberry](/assets/images/blog/raspberry.png){:class="img-responsive"}
 
