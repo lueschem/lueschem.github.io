@@ -238,6 +238,6 @@ However, not everything is yet as sweet as the raspberry pictured above. Just be
 [a Raspberry forum thread](https://www.raspberrypi.org/forums/viewtopic.php?f=66&t=17254), I also tried to compile 
 [Pidgin](https://pidgin.im/). After some desperate attempts to get all build dependencies installed, I threw in the towel.
 
-Everything above is still new and experimental and I do not expect it to work under any circumstances. I am sure that there
+Everything above is still new and experimental and I do not expect it to work under all circumstances. I am sure that there
 are more knowledgeable people around than me who can improve the above setup. Pull requests or constructive comments are
 highly appreciated!
