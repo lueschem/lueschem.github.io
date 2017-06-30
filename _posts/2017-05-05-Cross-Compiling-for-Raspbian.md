@@ -221,7 +221,7 @@ ssh pi@raspberrypi
 sudo dpkg -i man-db_2.7.0.2-5_armhf.deb
 ```
 
-With the commmand ```man man``` we can verify that the cross compiled binary seem to work fine on the Raspberry Pi.
+With the commmand ```man man``` we can verify that the cross compiled binary seems to work fine on the Raspberry Pi.
 
 Conclusion
 ----------
