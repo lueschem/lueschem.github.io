@@ -17,21 +17,21 @@ Debian armhf port requires an ARMv7-A capable CPU while the Pi 1 and Pi Zero are
 I rather prefer to automate things instead of writing lengthy instructions and therefore a few steps will be sufficient
 to start the cross compilation adventure on an Ubuntu 16.04 host:
 
-Update - 28-November-2017
--------------------------
+*Update - 28-November-2017*
+---------------------------
 
-The setup described in this blog post remains valid for Raspbian jessie. However Raspbian is now also available based
+_The setup described in this blog post remains valid for Raspbian jessie. However Raspbian is now also available based
 on Debian stretch. On Debian stretch gcc is treated differently than on jessie and it makes it more difficult to mix
 Raspbian stretch armhf binaries with pure Debian stretch amd64 binaries. Therefore I am probably not going to update
-this setup for Raspbian stretch.
+this setup for Raspbian stretch._
 
-Luckily, the community has made huge headway in running pure Debian on the Raspberry Pi 2 and 3. This is why I started
+_Luckily, the community has made huge headway in running pure Debian on the Raspberry Pi 2 and 3. This is why I started
 a new project called [edi-pi](https://github.com/lueschem/edi-pi). With edi-pi you can easily create the following
-artifacts:
+artifacts:_
 
-* A pure Debian stretch arm64 image for the Raspberry Pi 3.
-* An amd64/arm64 based LXD container with a pre-installed cross development toolchain for C and C++.
-* An emulated arm64 LXD container.
+* _A pure Debian stretch arm64 image for the Raspberry Pi 3._
+* _An amd64/arm64 based LXD container with a pre-installed cross development toolchain for C and C++._
+* _An emulated arm64 LXD container._
 
 Container Setup
 ---------------
