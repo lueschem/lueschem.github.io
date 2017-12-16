@@ -89,3 +89,50 @@ gets skipped thanks to already existing artifacts:
 ``` bash
 sudo edi -v image create pi3-stretch-arm64.yml
 ```
+
+## The Toolbox
+
+When creating OS images `edi` does not build upon a pre-built iso image but
+it starts from scratch using `debootstrap`. This has a beneficial effect
+especially for embedded devices since you can control all the installed
+packages right from the start and you do not have to remove any unwanted
+packages afterwards.
+Instead of customizing the minimal root file system within a chroot `edi`
+makes use of an [LXD](https://linuxcontainers.org/) container.
+This has a positive impact during the
+engineering phase since a lot of things (including service startup and
+network setup) can already be fine tuned within the container.
+The customization of the image happens within the LXD container by
+means of [Ansible](https://www.ansible.com/).
+When all the customization has been successfully completed, the LXD
+container gets exported and some additional custom scripting converts
+the root file system into the desired image format.
+
+## The Vital Side Products
+
+For embedded cross development it is desirable to make use of a cross
+compiler to reduce compile time. Thanks to the container based
+setup a single command is sufficient to generate a matching cross
+toolchain:
+
+``` bash
+sudo edi -v lxc configure edi-pi-cross-dev pi3-stretch-arm64-cross-dev.yml
+```
+
+Furthermore and emulated arm64 container can be built with the following
+command:
+
+``` bash
+sudo edi -v lxc configure edi-pi-dev pi3-stretch-arm64-dev.yml
+```
+
+The following picture shows an overview of the artifacts we have seen
+so far:
+
+![container and image artifacts](/assets/images/blog/edi_pi_artifacts.png){:class="img-responsive"}
+
+
+
+
+
+
