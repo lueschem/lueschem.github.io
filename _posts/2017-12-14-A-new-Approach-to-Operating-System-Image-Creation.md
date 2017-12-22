@@ -54,8 +54,12 @@ ssh pi@IP_ADDRESS
 
 or via local login using keyboard and monitor.
 
-Now we have to take a look behind the scenes to better understand how
-`edi` does the OS image generation:
+You might think: "So what? There are plenty of scripts that can achieve
+this."
+
+This is correct and I even got inspired by those scripts. But I wanted
+to take the approach a step further by doing certain things a bit
+different:
 
 ## The Command Pipeline
 
@@ -67,14 +71,16 @@ because the whole image can be developed step by step. While doing the later
 steps `edi` will directly reuse the artifacts of the previous steps without
 consuming time to re-generate them.
 
-The resulting "command pipeline" looks like this:
+The resulting design is a pipeline of consecutive sub commands that
+looks like this:
 
 ![command pipeline](/assets/images/blog/command_pipeline.png){:class="img-responsive"}
 
 `edi` does not even try to be clever about (intermediate) artifacts:
-If the artifact is present it will take it, otherwise it will try to
+If the requested artifact is present it will take it, otherwise it will try to
 generate it. If you want to force the re-creation of selected artifacts,
-you can tell edi to recursively delete artifacts from the N preceding steps:
+you can tell edi to recursively delete the artifacts of the given and
+the N preceding sub commands:
 
 ``` bash
 sudo edi image create --recursive-clean 5 pi3-stretch-arm64.yml
@@ -98,7 +104,7 @@ especially for embedded devices since you can control all the installed
 packages right from the start and you do not have to remove any unwanted
 packages afterwards.
 Instead of customizing the minimal root file system within a chroot `edi`
-makes use of an [LXD](https://linuxcontainers.org/) container.
+makes use of a [LXD](https://linuxcontainers.org/) container.
 This has a positive impact during the
 engineering phase since a lot of things (including service startup and
 network setup) can already be fine tuned within the container.
@@ -130,6 +136,82 @@ The following picture shows an overview of the artifacts we have seen
 so far:
 
 ![container and image artifacts](/assets/images/blog/edi_pi_artifacts.png){:class="img-responsive"}
+
+Now that we have a running Raspberry Pi and a cross compilation container
+we can do our first steps to develop a highly sophisticated application:
+
+## The Workflow
+
+First we enter the cross compilation container (the initial password is
+_ChangeMe!_) and change the password:
+
+``` bash
+lxc exec edi-pi-cross-dev -- login ${USER}
+passwd
+```
+
+Then we create a folder within the folder that is shared with the host
+operating system:
+
+``` bash
+mkdir -p ~/edi-workspace/hello-pi
+cd ~/edi-workspace/hello-pi
+```
+
+Now we write our groundbreaking application:
+
+``` bash
+cat << EOF > hello.cpp
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello Pi!" << std::endl;
+    return 0;
+}
+EOF
+```
+
+Since we are not sure if we got everything right in such a complex
+scenario we compile and test it in the container first:
+
+``` bash
+g++ hello.cpp -o hello-test
+./hello-test
+```
+
+Now we are confident that it is worth compiling the application for the
+target system:
+
+``` bash
+aarch64-linux-gnu-g++ hello.cpp -o hello-pi
+```
+
+And we deploy it to our Raspberry Pi:
+
+``` bash
+scp hello-pi pi@IP_ADDRESS:
+```
+
+And run it there:
+
+``` bash
+ssh pi@IP_ADDRESS
+./hello-pi
+```
+
+In the real world scenarios I have encountered so far it even turned out
+that most of the development and testing happens within the container.
+
+If the application relies upon hardware interfaces such as serial devices
+or network interfaces you can conveniently forward such interfaces into
+the LXD container and from within the container the world then looks pretty
+similar to the real world on the target device. If the host is capable of
+performing [real time tasks](https://wiki.linuxfoundation.org/realtime/start)
+then you can even test out real time stuff from within the container.
+
+The cross compilation and testing on the target device can then be
+automated and the developer does not have to care too much about it.
 
 
 
