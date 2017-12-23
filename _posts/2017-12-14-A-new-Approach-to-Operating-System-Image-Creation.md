@@ -213,6 +213,41 @@ then you can even test out real time stuff from within the container.
 The cross compilation and testing on the target device can then be
 automated and the developer does not have to care too much about it.
 
+## The Configuration
+
+Reusability was a key quality attribute for the design of `edi`.
+Therefore the `edi` scripting is kept separate from the project specific
+configurations. For increased readability an `edi` project is written
+in yaml and to allow parametrization the parsing of configuration files
+applies the [Jinja2](http://jinja.pocoo.org/) template engine.
+
+The configuration for the target image can be displayed using the following
+command:
+
+``` bash
+edi image create --config pi3-stretch-arm64.yml
+```
+
+As depicted above, the `edi-pi` project does not only allow you
+to generate a target image. You can also produce artifacts that are
+useful for development and testing. To support multiple use cases with
+a single project `edi` allows you to fine tune each use case using
+overlays:
+
+![overlays](/assets/images/blog/edi_overlays.png){:class="img-responsive"}
+
+Finally plugins are used to make the different assets even better
+sharable across multiple projects. The plugins applied to the Raspberry Pi 3
+image can be displayed using the following command:
+
+``` bash
+edi image create --plugins pi3-stretch-arm64.yml
+```
+
+For more details please consult the [edi documentation](http://docs.get-edi.io).
+
+
+
 
 
 
