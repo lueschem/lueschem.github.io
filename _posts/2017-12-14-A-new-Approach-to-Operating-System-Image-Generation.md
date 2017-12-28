@@ -140,12 +140,12 @@ so far:
 
 ![container and image artifacts](/assets/images/blog/edi_pi_artifacts.png){:class="img-responsive"}
 
-Now that we have a running Raspberry Pi and a cross compilation container
-we can do our first steps to develop a highly sophisticated application:
+Now that we have a running Raspberry Pi and a cross development container
+we can do our first steps to design a highly sophisticated application:
 
 ## The Workflow
 
-First we enter the cross compilation container (the initial password is
+First we enter the cross development container (the initial password is
 _ChangeMe!_) and change the password:
 
 ``` bash
@@ -214,7 +214,7 @@ performing [real time tasks](https://wiki.linuxfoundation.org/realtime/start)
 then you can even test out real time stuff from within the container.
 
 The cross compilation and testing on the target device can then be
-automated and the developer does not have fiddle around with real
+automated and the developer does not have to fiddle around with real
 hardware during most of his development time.
 
 ## The Configuration
