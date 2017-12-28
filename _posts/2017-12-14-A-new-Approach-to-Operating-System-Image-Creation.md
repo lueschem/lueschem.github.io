@@ -1,14 +1,19 @@
 ---
 author: matthias_luescher
 author_profile: true
-description: "This blog post outlines a (partially) new approach to OS image creation. Known tools and technologies such as debootstrap, Ansible, LXD and yaml are being used to conveniently build OS images from ground up."
+description: "This blog post outlines a (partially) new approach to OS image generation. Known tools and technologies such as debootstrap, Ansible, LXD and yaml are being used to conveniently build OS images from ground up."
 comments: true
 ---
 
-The last few weeks `edi` gained an important new feature: Given you have
-installed `edi` according to
+An advertisement for the latest `edi` feature could read as follows:
+"Conveniently generate your tailored Linux image and get a (cross)
+development container for free!"
+
+Here is how this looks like for the Raspberry Pi 3:
+
+Given you have installed the tool `edi` according to
 [this instructions](http://docs.get-edi.io/en/latest/getting_started.html)
-and cloned the `edi-pi` repository from GitHub:
+and cloned the `edi-pi` project configuration repository from GitHub:
 
 ``` bash
 git clone https://github.com/lueschem/edi-pi.git
@@ -32,7 +37,7 @@ image for the Raspberry Pi 3 using a single command:
 sudo edi -v image create pi3-stretch-arm64.yml
 ```
 
-The resulting image can be copied to a SD card (here /dev/mmcblk0)
+The resulting image can be copied to an *unmounted* SD card (here /dev/mmcblk0)
 using the following command:
 
 | Important Note |
@@ -42,8 +47,6 @@ using the following command:
 ``` bash
 sudo bmaptool copy artifacts/pi3-stretch-arm64.img /dev/mmcblk0
 ```
-
-If the command fails, unmount the flash card and repeat the above command.
 
 Once you have booted the Raspberry Pi 3 using this SD card you can
 access it using ssh (password is _raspberry_):
@@ -211,7 +214,8 @@ performing [real time tasks](https://wiki.linuxfoundation.org/realtime/start)
 then you can even test out real time stuff from within the container.
 
 The cross compilation and testing on the target device can then be
-automated and the developer does not have to care too much about it.
+automated and the developer does not have fiddle around with real
+hardware during most of his development time.
 
 ## The Configuration
 
@@ -246,10 +250,38 @@ edi image create --plugins pi3-stretch-arm64.yml
 
 For more details please consult the [edi documentation](http://docs.get-edi.io).
 
+## Conclusion and Acknowledgement
 
+The setup of the `edi-pi` project configuration was pretty straight
+forward for several reasons:
 
+- There are great communities around Debian and the Rasperry Pi that
+are providing plenty of useful information, source code and binaries.
+- The ARM community made huge headway with regards to mainline Linux
+kernel support. Therefore - with the appropriate device tree binary -
+a generic Debian kernel can be used on the Raspberry Pi 3 (However, for
+a production image it might be a good idea to ship a tailored kernel).
+- Great tools like Ansible make it easy to customize the image where
+needed.
 
+A big thanks goes to all the people that made this possible!
 
+The really cool thing about the above setup is that you can do most of
+your image and application development within a LXD container. The
+matching cross development container comes as an (almost) free gift.
 
+The approach outlined above is not at all limited to the Raspberry Pi 3.
+You can easily adapt it to other popular boards such as the
+[BeagleBone black](http://beagleboard.org/), the [Samsung Artik modules](https://www.artik.io)
+or any other board that is powerful enough to run Debian or Ubuntu.
+
+Although `edi` was initially designed for embedded projects it is
+generic enough that it could also serve in other areas: For example
+I am pretty sure that it is feasible to produce fully tailored images
+for Amazon, Azure, or name your favourite cloud provider here!
+
+What do you think about the above approach? Your feedback is appreciated!
+
+## Reference List
 
 
