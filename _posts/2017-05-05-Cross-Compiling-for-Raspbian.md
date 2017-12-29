@@ -33,6 +33,8 @@ artifacts:_
 * _An amd64/arm64 based LXD container with a pre-installed cross development toolchain for C and C++._
 * _An emulated arm64 LXD container._
 
+_Please read this [blog post](/A-new-Approach-to-Operating-System-Image-Generation/) for more details._
+
 Container Setup
 ---------------
 

@@ -66,10 +66,11 @@ different:
 
 ## The Command Pipeline
 
-OS image generation always involves time consuming steps. An important
-design goal of `edi` was to separate the steps in order to make sure that if a
+OS image generation always involves time consuming steps that get
+boring when executed over and over again. Having this in mind, an important
+design goal of `edi` was to separate those steps in order to make sure that if a
 step fails, that the artifacts from the preceding steps remain valid.
-This definitively helps to speed up the development of new OS images
+This helps to speed up the development of new OS images
 because the whole image can be developed step by step. While doing the later
 steps `edi` will directly reuse the artifacts of the previous steps without
 consuming time to re-generate them.
@@ -82,7 +83,7 @@ looks like this:
 `edi` does not even try to be clever about (intermediate) artifacts:
 If the requested artifact is present it will take it, otherwise it will try to
 generate it. If you want to force the re-creation of selected artifacts,
-you can tell edi to recursively delete the artifacts of the given and
+you can tell `edi` to recursively delete the artifacts of the given and
 the N preceding sub commands:
 
 ``` bash
@@ -92,12 +93,9 @@ sudo edi image create --recursive-clean 5 pi3-stretch-arm64.yml
 This command (here N=5) will remove most of the artifacts (up to and including the
 container) but e.g. the bootstrap artifacts will remain untouched.
 
-A re-creation of the OS image will be a lot faster since the bootstrapping
-gets skipped thanks to already existing artifacts:
-
-``` bash
-sudo edi -v image create pi3-stretch-arm64.yml
-```
+A re-creation of the OS image with the same command as above will be a
+lot faster since the bootstrapping gets skipped thanks to already
+existing artifacts.
 
 ## The Toolbox
 
@@ -175,7 +173,7 @@ int main()
 EOF
 ```
 
-Since we are not sure if we got everything right in such a complex
+Since we are not sure whether we got everything right in such a complex
 scenario we compile and test it in the container first:
 
 ``` bash
@@ -235,20 +233,18 @@ edi image create --config pi3-stretch-arm64.yml
 As depicted above, the `edi-pi` project does not only allow you
 to generate a target image. You can also produce artifacts that are
 useful for development and testing. To support multiple use cases with
-a single project `edi` allows you to fine tune each use case using
-overlays:
+a single project configuration `edi` allows you to fine tune each use
+case using overlays:
 
 ![overlays](/assets/images/blog/edi_overlays.png){:class="img-responsive"}
 
 Finally plugins are used to make the different assets even better
-sharable across multiple projects. The plugins applied to the Raspberry Pi 3
-image can be displayed using the following command:
+sharable across multiple project configurations. The plugins applied to
+the Raspberry Pi 3 image can be displayed using the following command:
 
 ``` bash
 edi image create --plugins pi3-stretch-arm64.yml
 ```
-
-For more details please consult the [edi documentation](http://docs.get-edi.io).
 
 ## Conclusion and Acknowledgement
 
@@ -284,4 +280,20 @@ What do you think about the above approach? Your feedback is appreciated!
 
 ## Reference List
 
+I came across a few cool things while preparing this blog post:
 
+- [rpi23-gen-image: advanced Debian bootstrap script for the Raspberry Pi 2 and 3](https://github.com/drtyhlpr/rpi23-gen-image)
+- [raspi3-image-spec: Debian buster Raspberry Pi 3 image generation configuration](https://github.com/Debian/raspi3-image-spec)
+- [Packer: automated machine image building](https://www.packer.io/)
+
+Furthermore this blog post is based on my previous posts:
+
+- [The Bright Future of Containers for Embedded Software](/The-Bright-Future-of-Containers-for-Embedded-Software/)
+- [Compiling for Embedded Debian Target Systems](/Compiling-for-Embedded-Debian-Target-Systems/)
+- [Cross Compiling for Raspbian](/Cross-Compiling-for-Raspbian/)
+
+If you are interested in the gory details you can continue reading here:
+
+- [edi documentation](http://docs.get-edi.io)
+- [edi source code](https://github.com/lueschem/edi)
+- [edi-pi project configuration](https://github.com/lueschem/edi-pi)
