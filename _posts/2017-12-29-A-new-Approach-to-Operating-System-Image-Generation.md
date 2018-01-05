@@ -133,6 +133,10 @@ command:
 sudo edi -v lxc configure edi-pi-dev pi3-stretch-arm64-dev.yml
 ```
 
+| Note About Emulation |
+| --- |
+| Please be aware that the emulated container is not recommended for daily work. The emulation causes a speed penalty and some things are not going to work as expected (e.g. `strace`, `ifconfig` or the ssh daemon). |
+
 The following picture shows an overview of the artifacts we have seen
 so far:
 
