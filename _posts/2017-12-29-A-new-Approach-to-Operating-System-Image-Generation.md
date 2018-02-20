@@ -13,7 +13,10 @@ Here is how this looks like for the Raspberry Pi 3:
 
 Given you have installed the tool `edi` according to
 [this instructions](http://docs.get-edi.io/en/latest/getting_started.html)
-and cloned the `edi-pi` project configuration repository from GitHub:
+(please take a careful look at the "Setting up ssh Keys" section since you
+will need a proper ssh key setup in order to access the container or
+the Rasperry Pi using ssh) and cloned the `edi-pi` project configuration
+repository from GitHub:
 
 ``` bash
 git clone https://github.com/lueschem/edi-pi.git
@@ -49,13 +52,15 @@ sudo bmaptool copy artifacts/pi3-stretch-arm64.img /dev/mmcblk0
 ```
 
 Once you have booted the Raspberry Pi 3 using this SD card you can
-access it using ssh (password is _raspberry_):
+access it using ssh (the access should be granted thanks to to your
+ssh keys):
 
 ``` bash
 ssh pi@IP_ADDRESS
 ```
 
-or via local login using keyboard and monitor.
+or via local login using keyboard and monitor (the password for the user
+_pi_ is _raspberry_).
 
 You might think: "So what? There are plenty of scripts that can achieve
 this."
