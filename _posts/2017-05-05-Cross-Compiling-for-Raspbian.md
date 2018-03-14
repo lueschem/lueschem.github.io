@@ -35,6 +35,13 @@ artifacts:_
 
 _Please read this [blog post](/A-new-Approach-to-Operating-System-Image-Generation/) for more details._
 
+
+*Update - 14-March-2018*
+------------------------
+
+_The container creation will currently fail due to [this issue](https://github.com/lueschem/edi-raspbian/issues/3)._
+
+
 Container Setup
 ---------------
 
