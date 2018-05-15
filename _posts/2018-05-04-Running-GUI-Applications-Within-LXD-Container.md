@@ -1,11 +1,11 @@
 ---
 author: matthias_luescher
 author_profile: true
-description: "In this blog post we extend our Raspbian cross compilation LXD container and add an integrated development environment (IDE) for C/C++."
+description: "In this blog post we extend our cross compilation LXD container and add an integrated development environment (IDE) for C/C++."
 comments: true
 ---
 
-If you have read my previous blog posts about using containers for embedded development
+In my previous blog posts about using containers for embedded development
 I have explained most of the things using command line commands. I hope that this
 convinced you that you can become a real nerd and do everything from the command line.
 The fancy integrated development environments (IDEs) are anyway just something for
@@ -13,7 +13,8 @@ beginners! No?!
 
 Ok, then you should read on. Honestly, I am also a huge fan of good IDEs and in this
 blog post I will show how you can add your favorite IDE to your
-[Raspbian cross compilation LXD container](/Cross-Compiling-for-Raspbian/).
+cross compilation LXD container (e.g targeting [Raspbian](/Cross-Compiling-for-Raspbian/)
+or pure [Debian](/A-new-Approach-to-Operating-System-Image-Generation/)).
 
 ## Prerequisites
 
@@ -22,12 +23,30 @@ Therefore I recommend that you use **Ubuntu Bionic Beaver (18.04 LTS)** as your 
 system or that you upgrade your LXD installation at your own risk if you decide to stay
 on Ubuntu Xenial Xerus (16.04 LTS) for some more time.
 
-The following instructions have been tested on **Ubuntu 18.04** and they assume that
-you already have a privileged container named **raspbian-stretch-cross** up and running
-that got created according to the
-[instructions contained in this blog post](/Cross-Compiling-for-Raspbian/).
+The following instructions have been tested on **Ubuntu 18.04**.
+ 
+## Building the Container
 
-## Preparing GPU Passthrough
+Given you have installed the tool `edi` according to
+[this instructions](http://docs.get-edi.io/en/latest/getting_started.html)
+and cloned the *edi-pi* project configuration repository from GitHub:
+
+``` bash
+git clone https://github.com/lueschem/edi-pi.git
+cd edi-pi
+``` 
+
+You are ready to grab a cup of tea until your *armhf* cross compilation container
+(named *edi-pi23-cross-dev*) for *Debian stretch* is built:
+
+``` bash
+sudo edi -v lxc configure edi-pi23-cross-dev pi23-stretch-armhf-cross-dev.yml
+```
+
+Please note that the above command will generate a *privileged* container which
+will save us a few steps in the instructions below.
+
+## Preparing the GPU Passthrough
 
 The following steps need to be done once per container and they are executed on the host
 system:
@@ -35,30 +54,30 @@ system:
 First we make the X server socket available within the container:
 
 ``` bash
-lxc config device add raspbian-stretch-cross xorg-socket disk path=/tmp/.X11-unix/X0 source=/tmp/.X11-unix/X0
+lxc config device add edi-pi23-cross-dev xorg-socket disk path=/tmp/.X11-unix/X0 source=/tmp/.X11-unix/X0
 ```
 
 Then we share the `.Xauthority` file - which is needed for X server authentication -
-into the container:
+with the container:
 
 ``` bash
-lxc config device add raspbian-stretch-cross ${USER}-Xauthority disk path=/home/${USER}/.Xauthority source=${XAUTHORITY}
+lxc config device add edi-pi23-cross-dev ${USER}-Xauthority disk path=/home/${USER}/.Xauthority source=${XAUTHORITY}
 ```
 
 And finally we make some GPU specific files available within the container:
 
 ``` bash
-lxc config device add raspbian-stretch-cross host-gpu gpu uid=0 gid=44
+lxc config device add edi-pi23-cross-dev host-gpu gpu uid=0 gid=44
 ```
 
 We are already done with the preparation!
 
 ## Running QtCreator From Within the Container
 
-First, we have to find out the IPv4 address (`CONTAINER_IP`) of the container:
+First, we have to retrieve the IPv4 address (`CONTAINER_IP`) of the container:
 
 ``` bash
-lxc list -c n4 raspbian-stretch-cross
+lxc list edi-pi23-cross-dev
 ```
 
 Now it is time to enter the container:
@@ -101,5 +120,69 @@ desktop:
 
 ## Adding Convenience
 
+Now it is time to make our setup a bit more convenient. Still *within our container*,
+we add a line to our `~/.profile` file that will automatically export the `DISPLAY`
+environment variable:
+
+``` bash
+echo "export DISPLAY=:0" >> ~/.profile
+```
+
+Now we create a launch script for `qtcreator` within the `bin` folder of our user:
+
+``` bash
+mkdir -p ~/bin
+touch ~/bin/qtcreator && chmod +x ~/bin/qtcreator
+vi ~/bin/qtcreator
+```
+
+with the content:
+
+``` bash
+#!/bin/bash
+export QT_SCALE_FACTOR=1
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SCREEN_SCALE_FACTORS=2
+/usr/bin/qtcreator
+```
+
+And we now quit the container:
+
+``` bash
+exit
+```
+
+Back on the host we modify our ssh setup by adding the following configuration
+to the `~/.ssh/config` file:
+
+``` bash
+Host edi-pi23-cross-dev
+    Hostname CONTAINER_IP
+```
+
+Please replace `CONTAINER_IP` with the IPv4 address you retrieved using the command
+`lxc list edi-pi23-cross-dev`.
+
+Launching `qtcreator` from your Ubuntu host is now as simple as this:
+
+``` bash
+ssh edi-pi23-cross-dev
+qtcreator
+```
+
 ## Conclusion and Acknowledgement
 
+At some point in the future it might be possible to run an IDE on the host system
+and do all the heavy lifting like compilation and debugging within a container. Right
+now it is just a lot simpler to run the IDE on the same system as the compiler and the
+(remote) debugger. This blog post illustrates how you can do a seamless integration for
+such a use case.
+
+The setup described above can also be applied to the [cross development toolchain that
+I have adapted for Raspbian](/Cross-Compiling-for-Raspbian/) and obviously it is not limited
+to `qtcreator`. Please feel free to try out your favorite IDE like PyCharm, eclipse or
+whatever it is.
+
+A special thanks goes to Simos Xenitellis: Please read his
+[blog post](https://blog.simos.info/how-to-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/) 
+if you you want to get more background information.
