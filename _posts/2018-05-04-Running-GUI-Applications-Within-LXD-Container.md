@@ -166,16 +166,22 @@ Please replace `CONTAINER_IP` with the IPv4 address you retrieved using the comm
 Launching `qtcreator` from your Ubuntu host is now as simple as this:
 
 ``` bash
-ssh edi-pi23-cross-dev
-qtcreator
+lxc exec edi-pi23-cross-dev -- sudo --login --user ${USER} qtcreator
 ```
+
+With the following command you can enter the container:
+
+``` bash
+ssh edi-pi23-cross-dev
+```
+
 
 ## Conclusion and Acknowledgement
 
 At some point in the future it might be possible to run an IDE on the host system
 and do all the heavy lifting like compilation and debugging within a container. Right
-now it is just a lot simpler to run the IDE on the same system as the compiler and the
-(remote) debugger. This blog post illustrates how you can do a seamless integration for
+now it is just a lot simpler to run the IDE on the same system as the compiler and other
+tools. This blog post illustrates how you can do a seamless integration for
 such a use case.
 
 The setup described above can also be applied to the [cross development toolchain that
