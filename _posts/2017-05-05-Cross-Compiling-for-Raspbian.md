@@ -15,7 +15,7 @@ As promised in the [previous blog post](/Compiling-for-Embedded-Debian-Target-Sy
 Debian armhf port requires an ARMv7-A capable CPU while the Pi 1 and Pi Zero are only equipped with an ARMv6 capable CPU. 
 
 I rather prefer to automate things instead of writing lengthy instructions and therefore a few steps will be sufficient
-to start the cross compilation adventure on an Ubuntu 16.04 host:
+to start the cross compilation adventure on an Ubuntu (16.04 or newer) host:
 
 *Update - 26-March-2018*
 ------------------------
@@ -200,5 +200,11 @@ Everything above is still new and experimental and I do not expect it to work un
 are more knowledgeable people around than me who can improve the above setup. Pull requests or constructive comments are
 highly appreciated!
 
+Further Reading
+---------------
+
 Please read this [blog post](/A-new-Approach-to-Operating-System-Image-Generation/) if you are interested in running
 pure Debian on a Raspberry Pi 2 or 3.
+
+If you would like to add your favourite integrated development environment (IDE) to your cross compilation
+toolchain you can read on [here](/Running-GUI-Applications-Within-LXD-Container/).
