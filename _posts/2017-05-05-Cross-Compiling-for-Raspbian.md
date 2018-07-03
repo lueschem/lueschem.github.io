@@ -208,3 +208,6 @@ pure Debian on a Raspberry Pi 2 or 3.
 
 If you would like to add your favourite integrated development environment (IDE) to your cross compilation
 toolchain you can read on [here](/Running-GUI-Applications-Within-LXD-Container/).
+
+You can also take a look at [the presentation]({{ site.url }}/assets/pdfs/DebianCross.pdf) I did for an
+embedded GNU/Linux developer meetup.
