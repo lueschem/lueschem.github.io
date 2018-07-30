@@ -15,7 +15,7 @@ As promised in the [previous blog post](/Compiling-for-Embedded-Debian-Target-Sy
 Debian armhf port requires an ARMv7-A capable CPU while the Pi 1 and Pi Zero are only equipped with an ARMv6 capable CPU. 
 
 I rather prefer to automate things instead of writing lengthy instructions and therefore a few steps will be sufficient
-to start the cross compilation adventure on an Ubuntu (16.04 or newer) host:
+to start the cross compilation adventure on an Ubuntu (16.04 or newer, **amd64** architecture required) host:
 
 *Update - 26-March-2018*
 ------------------------
