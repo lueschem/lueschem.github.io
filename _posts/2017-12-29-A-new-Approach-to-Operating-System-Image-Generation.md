@@ -12,7 +12,7 @@ development container for free!"
 Here is how this looks like for the Raspberry Pi 3:
 
 Given you have installed the tool `edi` according to
-[this instructions](http://docs.get-edi.io/en/latest/getting_started.html)
+[this instructions](https://docs.get-edi.io/en/latest/getting_started.html)
 (please take a careful look at the "Setting up ssh Keys" section since you
 will need a proper ssh key setup in order to access the container or
 the Rasperry Pi using ssh) and cloned the `edi-pi` project configuration
@@ -303,6 +303,6 @@ Furthermore this blog post is based on my previous posts:
 
 If you are interested in the gory details you can continue reading here:
 
-- [edi documentation](http://docs.get-edi.io)
+- [edi documentation](https://docs.get-edi.io)
 - [edi source code](https://github.com/lueschem/edi)
 - [edi-pi project configuration](https://github.com/lueschem/edi-pi)

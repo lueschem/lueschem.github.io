@@ -34,7 +34,7 @@ git clone https://github.com/lueschem/edi-raspbian.git
 cd edi-raspbian
 ```
 
-Under the assumption that [edi is already installed](http://docs.get-edi.io/en/latest/getting_started.html), we can directly
+Under the assumption that [edi is already installed](https://docs.get-edi.io/en/latest/getting_started.html), we can directly
 generate our mulitarch cross compilation container:
 
 ``` bash
@@ -190,7 +190,7 @@ Conclusion
 
 With the above description only a few steps are needed to prepare a cross development toolchain for Raspbian. The tricky 
 part of the setup is hidden behind an [Ansible](https://www.ansible.com/) playbook that is kicked off by the tool
-[edi](http://www.get-edi.io).
+[edi](https://www.get-edi.io).
 If you are interested in the details you can take a look at the playbook that is part of the 
 [edi-raspbian git repository](https://github.com/lueschem/edi-raspbian).
 

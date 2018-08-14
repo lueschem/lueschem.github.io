@@ -28,7 +28,7 @@ The following instructions have been tested on **Ubuntu 18.04**.
 ## Building the Container
 
 Given you have installed the tool `edi` according to
-[this instructions](http://docs.get-edi.io/en/latest/getting_started.html)
+[this instructions](https://docs.get-edi.io/en/latest/getting_started.html)
 and cloned the *edi-pi* project configuration repository from GitHub:
 
 ``` bash

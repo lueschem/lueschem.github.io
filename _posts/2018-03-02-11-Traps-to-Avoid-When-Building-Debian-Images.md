@@ -89,7 +89,7 @@ trustworthy source (e.g. not over `http`).
 ## 5. Reproducibility
 
 The assembly of a complex image involves several steps. Make sure that you automate all those steps
-in order to generate images with reproducible content. Tools like [edi](http://www.get-edi.io),
+in order to generate images with reproducible content. Tools like [edi](https://www.get-edi.io),
 [elbe](https://elbe-rfs.org/)
 or [packer](https://www.packer.io/) will help you to achieve this goal.
 
@@ -192,7 +192,7 @@ do get installed to provide a legally compliant image.
 I hope that the above checklist helps you to confirm that you
 or your image provider have bypassed all possible traps.
 
-The images generated using the tool [edi](http://www.get-edi.io) with the configuration
+The images generated using the tool [edi](https://www.get-edi.io) with the configuration
 [edi-pi](https://github.com/lueschem/edi-pi) will also come with a proper setup according to
 the above checklist.
 

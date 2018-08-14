@@ -11,7 +11,7 @@ developers are still dealing with static passwords to log in e.g. over ssh. This
 was also the case with the initial [edi-pi](https://github.com/lueschem/edi-pi)
 setup. To put it short - I felt very concerned about it.
 
-Here is how I changed it leveraging new [edi](http://www.get-edi.io) features:
+Here is how I changed it leveraging new [edi](https://www.get-edi.io) features:
 
 ## Precondition
 
@@ -47,7 +47,7 @@ will do the trick for you.
 ## Creating the Container
 
 Given you have installed edi according to
-[this instructions](http://docs.get-edi.io/en/latest/getting_started.html)
+[this instructions](https://docs.get-edi.io/en/latest/getting_started.html)
 (version >= 0.11.0) you are now ready to go.
 
 First we build a brand new LXD container from scratch:

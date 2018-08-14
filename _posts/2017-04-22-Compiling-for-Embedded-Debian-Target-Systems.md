@@ -34,7 +34,7 @@ sudo edi -v lxc configure debian-jessie-amd64 debian-jessie-amd64-develop.yml
 ```
 
 For the next few steps we will enter the container (password is _ChangeMe!_, please check 
-[this documentation](http://docs.get-edi.io/en/latest/getting_started.html) 
+[this documentation](https://docs.get-edi.io/en/latest/getting_started.html) 
 if you are interested in more details) and install some additional software:
 
 ``` bash

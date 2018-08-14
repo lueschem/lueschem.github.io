@@ -44,9 +44,9 @@ I prefer to use restructured text as soon as the documents get bigger. The tool
 [Sphinx](http://www.sphinx-doc.org) then turns my documentation into a web page and now
 we are ready to use a first service outside of the GitHub universe:
 [Read the Docs](https://readthedocs.org/) serves the
-[edi documentation](http://docs.get-edi.io).
+[edi documentation](https://docs.get-edi.io).
 
-To register http://www.get-edi.io and http://docs.get-edi.io I visited the web page of
+To register https://www.get-edi.io and https://docs.get-edi.io I visited the web page of
 [Cyon](https://www.cyon.ch/) and bought and configured my domain.
 
 Analytics
