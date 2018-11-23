@@ -18,7 +18,7 @@ elegantly combine those two popular choices.
 ![boot](/assets/images/blog/boot.png){:class="img-responsive"}
 
 Having a proper boot loader setup for
-your IoT device is a mandatory prerequisite for reliable device updates.
+your IoT device is a mandatory prerequisite for reliable updates.
 
 ## Requirements
 
@@ -84,7 +84,7 @@ sudo bmaptool copy artifacts/pi3-stretch-arm64.img /dev/mmcblk0
 ```
 
 Once you have booted the Raspberry Pi 3 using this SD card you can
-access it using ssh (the access should be granted thanks to to your
+access it using ssh (the access should be granted thanks to your
 ssh keys):
 
 ``` bash
@@ -132,13 +132,13 @@ booti ${kernel_addr_r} ${ramdisk_addr_r}:${filesize} ${fdt_addr_r}
 
 On the first line we configure the kernel's command-line parameters. The second line will load the 
 kernel image from the _ext4_ partition. The following two lines will load the matching device 
-tree binary and the initial ram disk from the location where the Debian package has placed it.
+tree binary and the initial ram disk from the locations where the Debian package has placed them.
 Finally the `booti` (or `bootz` for armhf systems) command will boot into the loaded Debian 
 system.
 
 To bridge the gap between U-Boot and Debian I have developed a small package called 
 [edi-boot-shim](https://github.com/lueschem/edi-boot-shim).
-This package contains a small script `edi-boot-shim` (located in `/usr/bin`) that can be used 
+This package contains the small script `edi-boot-shim` (located in `/usr/bin`) that can be told 
 to updated the boot instructions within `boot.scr`. By executing the following command, you will
 make sure that the given kernel package is getting used for the next boot:
 
@@ -152,7 +152,7 @@ provides such a hook script (see `/etc/kernel/postinst.d/zz-edi-boot-shim`).
 
 Finally a given use case might need some customized configuration. The behavior of the package 
 `edi-boot-shim` can be fine tuned by adapting its configuration file 
-`/etc/edi-boot-shim/edi-boot-shim.cfg` or by fine tuning the boot command template 
+`/etc/edi-boot-shim/edi-boot-shim.cfg` or by adjusting the boot command template 
 (e.g. `/etc/edi-boot-shim/boot.cmd.rpi.arm64`).
 
 ## Conclusion

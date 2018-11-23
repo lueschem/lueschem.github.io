@@ -52,7 +52,7 @@ sudo bmaptool copy artifacts/pi3-stretch-arm64.img /dev/mmcblk0
 ```
 
 Once you have booted the Raspberry Pi 3 using this SD card you can
-access it using ssh (the access should be granted thanks to to your
+access it using ssh (the access should be granted thanks to your
 ssh keys):
 
 ``` bash
