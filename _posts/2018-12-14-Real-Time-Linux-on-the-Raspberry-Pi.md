@@ -151,8 +151,8 @@ The solution comes with the following design parameters:
 you can operate a fieldbus with update cycles of up to 5kHz.
 - Thanks to the CPU power of the Linux box and its real-time behavior
 you can centrally control complex multi axis machines with relatively
-dumb field bus controller nodes.
-- Many processing tasks can be moved from the field bus node to the Linux box.
+dumb fieldbus controller nodes.
+- Many processing tasks can be moved from the fieldbus node to the Linux box.
 
 However, I strongly recommend to keep the real-time application slim as you can easily run into
 troubles when trying to squeeze everything into one process with real-time priorities.
@@ -161,7 +161,7 @@ troubles when trying to squeeze everything into one process with real-time prior
 
 PREEMPT_RT patched Linux is heavily used in industry as it is a brilliant combination of a
 general purpose operating system with a real time operating system. In many cases it is a suitable
-replacement for proprietary real-time operating system.
+replacement for proprietary real-time operating systems.
 
 It would be great if you could convince your company to sponsor the PREEMPT_RT development so
 that it can finally fully slip into the Linux mainline kernel.
