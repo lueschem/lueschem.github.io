@@ -147,7 +147,7 @@ The solution comes with the following design parameters:
 - The best supported CPU architecture is amd64.
 - Real-time applications can run in user space.
 - Plain C/C++ is suitable for real-time application development.
-- With a [decent hardware]((https://www.osadl.org/QA-Farm-Realtime.qa-farm-about.0.html))
+- With a [decent hardware](https://www.osadl.org/QA-Farm-Realtime.qa-farm-about.0.html)
 you can operate a fieldbus with update cycles of up to 5kHz.
 - Thanks to the CPU power of the Linux box and its real-time behavior
 you can centrally control complex multi axis machines with relatively
