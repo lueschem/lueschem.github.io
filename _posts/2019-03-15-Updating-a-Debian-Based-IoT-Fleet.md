@@ -14,36 +14,35 @@ Debian based operating systems.
 As I am doing quite a lot of research in this area, I always wondered
 if those companies have robust update strategies for their edge devices.
 
-I believe that package based updates based on
-[apt](https://en.wikipedia.org/wiki/APT_(Debian)) are possible to some degree,
-but after some years of upgrading the device we might end up with a pretty
-unknown deployment state due to the long upgrade history. It might even
-be worse and after some upgrades the device might just not recover due to
-some power outage in the wrong moment (apt package updates are not
-transactional and therefore we have no builtin fallback strategy that allows us to go
-back to the last known working state.). It will even get more tricky if
-we want to do a
-[release upgrade](https://debian-handbook.info/browse/en-US/stable/sect.dist-upgrade.html)
-(e.g. from stretch to buster) after some years. I would never do this
-"in place" on a large IoT fleet.
+I believe that package based updates with
+[apt](https://en.wikipedia.org/wiki/APT_(Debian)) are possible to some degree with the
+following limitations:
 
+* After some years of upgrading the device we might end up with a pretty
+unknown deployment state due to the long incremental upgrade history.
+* Apt based package updates are not fully
+transactional and therefore we have no built-in fallback strategy that allows us to go
+back to the last known working state in case we hit an issue during the update.
+* During a [release upgrade](https://debian-handbook.info/browse/en-US/stable/sect.dist-upgrade.html)
+(e.g. from stretch to buster) we might encounter some edge cases that we have never
+tested.
 
-What I know is that Canonical is pushing [Ubuntu Core](https://www.ubuntu.com/core)
+Canonical is pushing [Ubuntu Core](https://www.ubuntu.com/core)
 and this operating system is built upon a
 [robust update mechanism](https://en.wikipedia.org/wiki/Snappy_(package_manager)).
 
 However, I wanted to bring such a robust update mechanism into my personal
 [Debian based project](https://github.com/lueschem/edi-pi). During my professional
 career I already developed such an update mechanism and from the gained experience I
-know that it is a complex endeavor. Therefore it was clear that I will base my
+know that it is a complex endeavor. Therefore it was clear to me that I will base my
 solution upon a well thought out open source project instead of developing my
-own solution. After some through evaluations I came to the conclusion that
+own solution. After a through evaluation phase I came to the conclusion that
 [Mender](https://mender.io/) is a great match for my project. The key selling
 points were simplicity of the solution, a
 [matching management interface](https://hosted.mender.io), fully open source code and
 a good unit test coverage.
 
-There is even a very [valuable tool around](https://github.com/mendersoftware/mender-convert)
+There is even a very [valuable tool available](https://github.com/mendersoftware/mender-convert)
 that turns a Raspbian image into a Mender compliant image. I used this as a starting
 point to get to know how I can add the Mender update mechanism to my
 [personal project](https://github.com/lueschem/edi-pi).
@@ -51,7 +50,7 @@ point to get to know how I can add the Mender update mechanism to my
 After some hours of work it is now possible to easily generate a Debian stretch
 image for the Raspberry Pi 2 or 3 that comes with full Mender update support!
 
-Here is how you can build the image and a Mender update artifact:
+Here is how you can build the OS image and a corresponding Mender update artifact:
 
 ## Building the OS Image and the Mender Update Artifact
 
@@ -67,12 +66,12 @@ The OS image build requires the installation of some additional tools:
 sudo apt install e2fsprogs dosfstools bmap-tools mtools parted
 ```
 
-To generate the Mender update artifact, the `mender-artifact` tool is required
-that unfortunately did not yet make it into the Ubuntu Bionic apt repositories.
-It will be part of the upcoming Debian buster and since the package comes with
-a small number of dependencies it is possible to
+To generate the Mender update artifact, the `mender-artifact` tool is required.
+Unfortunately it did not make it into the Ubuntu Bionic apt repositories.
+Luckily this package comes with a small number of dependencies and therefore it
+is without risk to
 [download it from Debian](https://packages.debian.org/buster/mender-artifact)
-and install it on a Ubuntu Bionic:
+and install it on Ubuntu Bionic:
 
 ``` bash
 sudo dpkg -i mender-artifact*.deb
@@ -103,7 +102,7 @@ Please enter your tenant token like this:
 mender_tenant_token: YOURTENANTTOKENRETRIEVEDFROMHOSTEDMENDER
 ```
 
-That's it, now you can generate the full image and the update artifact:
+That's it, now you can generate the full OS image and the update artifact:
 
 | Important Note |
 | --- |
@@ -146,9 +145,9 @@ and "accept" our new device.
 
 Mender is a clever software and if we would upload the update artifact we have
 created before and try to deploy it to our device it would just figure out
-that you have already the correct image version and skip the update.
+that you have already the correct image version installed and skip the update.
 
-As a shortcut we now just create an image with a slightly update timestamp:
+As a shortcut we now create an image with a slightly updated timestamp:
 
 ``` bash
 sudo edi -v image create --clean pi23-stretch-armhf.yml
@@ -161,11 +160,11 @@ Raspberry Pi.
 
 After some minutes our Raspberry Pi has booted into our new OS deployment:
 
-![update report](/assets/images/blog/mender_update_report.png){:class="img-responsive"}
+![update report](/assets/images/blog/mender_report.png){:class="img-responsive"}
 
 ## Conclusion and Acknowledgement
 
-The people at Mender have really done a good job in developing such a great
+The people at Mender have really done a great job in developing a robust
 update solution! If you would like to learn more about it then their
 [documentation](https://docs.mender.io/) is a good starting point.
 
@@ -173,5 +172,5 @@ I have spent quite some time on a
 [clever and clean Debian integration](https://github.com/lueschem/edi/issues/39) that
 should be easy to adapt for other IoT hardware.
 
-I hope that this blog post contributes to more robust and safer IoT world!
+I hope that this blog post is a small contribution to a more robust and safer IoT world!
 
