@@ -36,29 +36,28 @@ However, I wanted to bring such a robust update mechanism into my personal
 career I already developed such an update mechanism and from the gained experience I
 know that it is a complex endeavor. Therefore it was clear to me that I will base my
 solution upon a well thought out open source project instead of developing my
-own solution. After a through evaluation phase I came to the conclusion that
+own solution again. After a through evaluation phase I came to the conclusion that
 [Mender](https://mender.io/) is a great match for my project. The key selling
-points were simplicity of the solution, a
+points were simplicity of the solution, good documentation, a
 [matching management interface](https://hosted.mender.io), fully open source code and
 a good unit test coverage.
 
 There is even a very [valuable tool available](https://github.com/mendersoftware/mender-convert)
 that turns a Raspbian image into a Mender compliant image. I used this as a starting
-point to get to know how I can add the Mender update mechanism to my
-[personal project](https://github.com/lueschem/edi-pi).
+point to get to know how I can add the Mender update mechanism to my personal project.
 
-After some hours of work it is now possible to easily generate a Debian stretch
-image for the Raspberry Pi 2 or 3 that comes with full Mender update support!
+After inspiring discussions and some days of work it is now possible to easily generate
+a Debian stretch image for the Raspberry Pi 2 or 3 that comes with full Mender update support!
 
 Here is how you can build the OS image and a corresponding Mender update artifact:
 
 ## Building the OS Image and the Mender Update Artifact
 
-First you need to install the tool `edi` according to
+First you will need to install the tool `edi` according to
 [this instructions](https://docs.get-edi.io/en/latest/getting_started.html).
 
-Please take a careful look at the "Setting up ssh Keys" section since you
-will need a proper ssh key setup in order to access the Rasperry Pi using ssh.
+Please take a careful look at the "Setting up ssh Keys" section in order
+to be able to access your device by means of ssh.
 
 The OS image build requires the installation of some additional tools:
 
@@ -102,7 +101,7 @@ Please enter your tenant token like this:
 mender_tenant_token: YOURTENANTTOKENRETRIEVEDFROMHOSTEDMENDER
 ```
 
-That's it, now you can generate the full OS image and the update artifact:
+That's it, now you can generate the full OS image and the Mender update artifact:
 
 | Important Note |
 | --- |
@@ -154,7 +153,7 @@ sudo edi -v image create --clean pi23-stretch-armhf.yml
 sudo edi -v image create pi23-stretch-armhf.yml
 ```
 
-Now we are ready to upload the Mender update artifact `artifacts/pi23-stretch-armhf.mender`
+Now we are ready to upload the Mender update artifact (see `artifacts/pi23-stretch-armhf.mender`)
 to our [hosted Mender instance](https://hosted.mender.io) and to deploy it to our
 Raspberry Pi.
 
@@ -164,13 +163,27 @@ After some minutes our Raspberry Pi has booted into our new OS deployment:
 
 ## Conclusion and Acknowledgement
 
-The people at Mender have really done a great job in developing a robust
+The people at Mender have really done a great job in developing a robust A/B
 update solution! If you would like to learn more about it then their
 [documentation](https://docs.mender.io/) is a good starting point.
 
 I have spent quite some time on a
-[clever and clean Debian integration](https://github.com/lueschem/edi/issues/39) that
-should be easy to adapt for other IoT hardware.
+[clean and clever Debian integration](https://github.com/lueschem/edi/issues/39).
+The solution includes the following benefits:
 
-I hope that this blog post is a small contribution to a more robust and safer IoT world!
+* It enables a hybrid update strategy (Mender for major image based upgrades,
+apt for minor package based updates).
+* It can easily be adapted for other embedded hardware.
+* A Mender update artifact gets directly built alongside the full OS image.
+* The partitions get automatically adjusted according to the available disk space.
+* Upstream Debian kernel packages can be directly used thanks to
+[this U-Boot integration](/Booting-Debian-with-U-Boot/).
+* There is no ultimate need for patching U-Boot (the required bootcount logic is handled
+within the primary boot script (`boot.scr`).
+* The same configuration can be used to generate a matching cross compilation toolchain (see also
+[this blog post](/A-new-Approach-to-Operating-System-Image-Generation/)).
+* The functionality of the generated OS image can be easily enhanced according to a specific use case.
+
+I hope that this blog post is a small contribution to a more robust and safer IoT world
+where the devices get upgraded more frequently!
 
