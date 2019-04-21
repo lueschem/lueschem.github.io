@@ -3,6 +3,7 @@ author: matthias_luescher
 author_profile: true
 description: "A secure by default configuration is usually not the most user friendly setup. In this blog post I will show how edi does setup ssh with above average security settings and still remains user friendly."
 comments: true
+title: Secure By Default ssh Setup
 ---
 
 Nowadays - in the funny days of IoT - the majority of embedded devices are reachable

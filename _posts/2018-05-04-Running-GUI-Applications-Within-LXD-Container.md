@@ -3,6 +3,7 @@ author: matthias_luescher
 author_profile: true
 description: "In this blog post we extend our cross compilation LXD container and add an integrated development environment (IDE) for C/C++."
 comments: true
+title: Running GUI Applications Within LXD Containers
 ---
 
 In my previous blog posts about using containers for embedded development
