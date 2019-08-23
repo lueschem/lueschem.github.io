@@ -52,6 +52,7 @@ and cloned the *edi-pi* project configuration repository from GitHub:
 
 ``` bash
 git clone https://github.com/lueschem/edi-pi.git
+git checkout stretch
 cd edi-pi
 ``` 
 

@@ -6,6 +6,10 @@ comments: true
 title: "Updating a Debian Based IoT Fleet with Mender"
 ---
 
+| Update - Debian Buster - 23. August 2019 |
+| --- |
+| Debian buster got released more than one month ago. As usual it is another great release and therefore I decided to upgrade edi-pi to buster. |
+
 It is great to see that Debian/Raspbian/Ubuntu gets more and more popular
 in the space of IoT. Even the biggest companies like Microsoft
 [adopt](https://docs.microsoft.com/en-us/azure/iot-edge/support) the
@@ -47,7 +51,7 @@ that turns a Raspbian image into a Mender compliant image. I used this as a star
 point to get to know how I can add the Mender update mechanism to my personal project.
 
 After inspiring discussions and some days of work it is now possible to easily generate
-a Debian stretch image for the Raspberry Pi 2 or 3 that comes with full Mender update support!
+a Debian buster image for the Raspberry Pi 2 or 3 that comes with full Mender update support!
 
 Here is how you can build the OS image and a corresponding Mender update artifact:
 
@@ -109,7 +113,7 @@ That's it, now you can generate the full OS image and the Mender update artifact
 
 
 ``` bash
-sudo edi -v image create pi23-stretch-armhf.yml
+sudo edi -v image create pi23-buster-armhf.yml
 ```
 
 The resulting OS image can be copied to an *unmounted* SD card (here /dev/mmcblk0)
@@ -120,7 +124,7 @@ using the following command:
 | Everything on the SD card will be erased! |
 
 ``` bash
-sudo bmaptool copy artifacts/pi23-stretch-armhf.img /dev/mmcblk0
+sudo bmaptool copy artifacts/pi23-buster-armhf.img /dev/mmcblk0
 ```
 
 Once you have booted the Raspberry Pi 2 or 3 using this SD card you can
@@ -149,11 +153,11 @@ that you have already the correct image version installed and skip the update.
 As a shortcut we now create an image with a slightly updated timestamp:
 
 ``` bash
-sudo edi -v image create --clean pi23-stretch-armhf.yml
-sudo edi -v image create pi23-stretch-armhf.yml
+sudo edi -v image create --clean pi23-buster-armhf.yml
+sudo edi -v image create pi23-buster-armhf.yml
 ```
 
-Now we are ready to upload the Mender update artifact (see `artifacts/pi23-stretch-armhf.mender`)
+Now we are ready to upload the Mender update artifact (see `artifacts/pi23-buster-armhf.mender`)
 to our [hosted Mender instance](https://hosted.mender.io) and to deploy it to our
 Raspberry Pi.
 
