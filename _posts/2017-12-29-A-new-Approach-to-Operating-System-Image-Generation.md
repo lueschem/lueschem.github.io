@@ -5,6 +5,10 @@ description: "This blog post outlines a (partially) new approach to OS image gen
 comments: true
 ---
 
+| Update - Debian Buster - 23. August 2019 |
+| --- |
+| Debian buster got released more than one month ago. As usual it is another great release and therefore I decided to upgrade edi-pi to buster. |
+
 An advertisement for the latest `edi` feature could read as follows:
 "Conveniently generate your tailored Linux image and get a (cross)
 development container for free!"
@@ -29,7 +33,17 @@ and installed a few extra tools:
 sudo apt install e2fsprogs dosfstools bmap-tools
 ```
 
-You are now ready to generate a minimal pure Debian stretch arm64
+To generate the Mender update artifact, the mender-artifact tool is required.
+Unfortunately it did not make it into the Ubuntu Bionic apt repositories.
+Luckily this package comes with a small number of dependencies and therefore
+it is without risk to [download it from Debian](https://packages.debian.org/buster/mender-artifact)
+and install it on Ubuntu Bionic:
+
+``` bash
+sudo dpkg -i mender-artifact*.deb
+```
+
+You are now ready to generate a minimal pure Debian buster arm64
 image for the Raspberry Pi 3 using a single command:
 
 | Important Note |
@@ -37,7 +51,7 @@ image for the Raspberry Pi 3 using a single command:
 | OS image generation operations require superuser privileges and therefore you can easily break your host operating system. Please ensure that you have a backup copy of your data. |
 
 ``` bash
-sudo edi -v image create pi3-stretch-arm64.yml
+sudo edi -v image create pi3-buster-arm64.yml
 ```
 
 The resulting image can be copied to an *unmounted* SD card (here /dev/mmcblk0)
@@ -48,7 +62,7 @@ using the following command:
 | Everything on the SD card will be erased! |
 
 ``` bash
-sudo bmaptool copy artifacts/pi3-stretch-arm64.img /dev/mmcblk0
+sudo bmaptool copy artifacts/pi3-buster-arm64.img /dev/mmcblk0
 ```
 
 Once you have booted the Raspberry Pi 3 using this SD card you can
@@ -92,7 +106,7 @@ you can tell `edi` to recursively delete the artifacts of the given and
 the N preceding sub commands:
 
 ``` bash
-sudo edi image create --recursive-clean 5 pi3-stretch-arm64.yml
+sudo edi image create --recursive-clean 5 pi3-buster-arm64.yml
 ```
 
 This command (here N=5) will remove most of the artifacts (up to and including the
@@ -128,19 +142,19 @@ setup a single command is sufficient to generate a matching cross
 toolchain:
 
 ``` bash
-sudo edi -v lxc configure edi-pi-cross-dev pi3-stretch-arm64-cross-dev.yml
+sudo edi -v lxc configure edi-pi-cross-dev-buster pi3-buster-arm64-cross-dev.yml
 ```
 
 Furthermore and emulated arm64 container can be built with the following
 command:
 
 ``` bash
-sudo edi -v lxc configure edi-pi-dev pi3-stretch-arm64-dev.yml
+sudo edi -v lxc configure edi-pi-arm64-dev-buster pi3-buster-arm64-dev.yml
 ```
 
 | Note About Emulation |
 | --- |
-| Please be aware that the emulated container is not recommended for daily work. The emulation causes a speed penalty and some things are not going to work as expected (e.g. `strace`, `ifconfig` or the ssh daemon). |
+| Please be aware that the emulated container is not recommended for daily work. The emulation causes a speed penalty and some things are not going to work as expected (e.g. `strace`, `ifconfig` or the ssh daemon). Furthermore edi-pi will disable the startup of services within emulated containers. |
 
 The following picture shows an overview of the artifacts we have seen
 so far:
@@ -156,7 +170,7 @@ First we enter the cross development container (the initial password is
 _ChangeMe!_) and change the password:
 
 ``` bash
-lxc exec edi-pi-cross-dev -- login ${USER}
+lxc exec edi-pi-cross-dev-buster -- login ${USER}
 passwd
 ```
 
@@ -236,7 +250,7 @@ The configuration for the target image can be displayed using the following
 command:
 
 ``` bash
-edi image create --config pi3-stretch-arm64.yml
+edi image create --config pi3-buster-arm64.yml
 ```
 
 As depicted above, the `edi-pi` project does not only allow you
@@ -252,7 +266,7 @@ sharable across multiple project configurations. The plugins applied to
 the Raspberry Pi 3 image can be displayed using the following command:
 
 ``` bash
-edi image create --plugins pi3-stretch-arm64.yml
+edi image create --plugins pi3-buster-arm64.yml
 ```
 
 ## Conclusion and Acknowledgement
@@ -277,7 +291,8 @@ matching cross development container comes as an (almost) free gift.
 
 The approach outlined above is not at all limited to the Raspberry Pi 3.
 You can easily adapt it to other popular boards such as the
-[BeagleBone black](http://beagleboard.org/), the [Samsung Artik modules](https://www.artik.io)
+[BeagleBone black](http://beagleboard.org/), the
+[Compulab IoT Gateway](https://www.compulab.com/de/products/iot-gateways/iot-gate-imx7-nxp-i-mx-7-internet-of-things-gateway/)
 or any other board that is powerful enough to run Debian or Ubuntu.
 
 Although `edi` was initially designed for embedded projects it is
