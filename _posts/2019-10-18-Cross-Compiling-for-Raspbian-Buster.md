@@ -263,7 +263,7 @@ debuild -us -uc
 sudo dpkg -i ../libzstd1_1.3.8+dfsg-3+rpi1_amd64.deb ../libzstd-dev_1.3.8+dfsg-3+rpi1_amd64.deb
 ```
 
-Finally we can also install the armhf development package
+Finally we can also install the armhf development package:
 
 ```
 sudo apt install libzstd-dev:armhf
