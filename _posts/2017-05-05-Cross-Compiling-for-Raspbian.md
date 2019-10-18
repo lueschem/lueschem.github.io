@@ -23,6 +23,11 @@ to start the cross compilation adventure on an Ubuntu (16.04 or newer, **amd64**
 _Due to the great demand, I finally upgraded the setup to Raspbian stretch! You can now enjoy gcc 6.3 within the
 cross compilation container. The instructions below do now reflect this version change._
 
+*Update - 18-October-2019*
+--------------------------
+
+_An [updated setup](/Cross-Compiling-for-Raspbian-Buster/) for Raspbian buster is available!_
+
 
 Container Setup
 ---------------
@@ -32,6 +37,7 @@ The following repository contains the container setup instructions:
 ``` bash
 git clone https://github.com/lueschem/edi-raspbian.git
 cd edi-raspbian
+git checkout stretch
 ```
 
 Under the assumption that [edi is already installed](https://docs.get-edi.io/en/latest/getting_started.html), we can directly

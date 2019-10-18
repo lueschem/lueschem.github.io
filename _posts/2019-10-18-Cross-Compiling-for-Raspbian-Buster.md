@@ -12,7 +12,7 @@ to Raspbian buster and enjoy the gcc update (the version jumped from 6.3 to 8.3)
 
 ![raspberry](/assets/images/blog/raspberry.png){:class="img-responsive"}
 
-This post serves as an addendum to my [previous post](/Cross-Compiling-for-Raspbian/) on the same topic.
+This post serves as an addendum to my [previous post](/Cross-Compiling-for-Raspbian/) covering the same topic.
 
 Container Setup
 ---------------
@@ -42,7 +42,7 @@ To retrieve the IP address of the container (`IP_ADDRESS_OF_CONTAINER`) we use t
 lxc list raspbian-buster-cross
 ```
 
-To add some convenience we add the following snippet to `~/.ssh/config`:
+To add some convenience we insert the following snippet into `~/.ssh/config`:
 
 ``` bash
 Host raspbian-buster-cross
@@ -160,21 +160,16 @@ side by side.
 Recompilation of the SSL Library
 --------------------------------
 
-As within the [previous blog post](/Cross-Compiling-For-Raspbian/) we can now recompile a Debian package:
+As within the [previous blog post](/Cross-Compiling-for-Raspbian/) we can now cross-compile a Raspbian package:
 
 ``` bash
 mkdir -p ~/edi-workspace/openssl-cross && cd ~/edi-workspace/openssl-cross
 apt-get source libssl1.1
 cd openssl-1.1.1d
-```
-
-And we compile it:
-
-``` bash
 export DEB_BUILD_OPTIONS=nocheck; debuild -us -uc -aarmhf
 ```
 
-The resulting Debian package can now be installed on a Raspberry Pi.
+The resulting armhf Raspbian package can now be installed on a Raspberry Pi.
 
 Dealing with +rpi1 Issues
 -------------------------
@@ -298,10 +293,10 @@ A kernel cross compilation is straight forward while more effort and expertise i
 trivial packages such as apt.
 
 Furthermore the above generated container can be used as a "digital twin" of the Raspberry Pi and a lot of
-development effort can happen within the container and without touching the real hardware.
+development effort can happen within the container (without touching the target hardware).
 
 If some components perfidiously refuse to get cross compiled, you can still buy the most powerful Raspberry Pi
-available and natively compile it on that device. 
+available and natively compile them on that device. 
 
 Further Reading
 ---------------
