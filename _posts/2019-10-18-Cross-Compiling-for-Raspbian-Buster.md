@@ -7,8 +7,8 @@ title: "Cross Compiling for Raspbian Buster"
 ---
 
 Guessing from the number of clones on GitHub my [cross compilation setup](https://github.com/lueschem/edi-raspbian)
-for the Raspberry Pi still seems to be pretty popular - although it is outdated! Finally it is time to upgrade it
-to Raspbian buster and enjoy the gcc update (the version jumped from 6.3 to 8.3).
+for Raspbian stretch still seems to be pretty popular. This makes it worthwhile to move on to
+Raspbian buster and enjoy the gcc update (the version jumped from 6.3 to 8.3).
 
 ![raspberry](/assets/images/blog/raspberry.png){:class="img-responsive"}
 
