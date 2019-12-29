@@ -24,7 +24,7 @@ GitHub
 [GitHub](https://github.com/lueschem/edi) was already my source code repository hosting of choice. However, my
 branching setup was too simple for the continuous delivery pipeline and therefore I decided to introduce
 [git-flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). The _master_ branch
-now has as special position: Each time I do a merge to it a new release will get generated.
+now has a special position: Each time I do a merge to it a new release will get generated.
 [Webhooks](https://developer.github.com/webhooks/) will trigger the update of the [documentation](https://docs.get-edi.io/en/latest/)
 on [Read the Docs](https://readthedocs.org/) and the package builds for several Debian and Ubuntu releases on
 [Travis CI](https://travis-ci.org/lueschem/edi).
