@@ -35,7 +35,9 @@ The whole setup is highly configurable according to the needs of your project. P
 For an example on how you can integrate it into your build pipeline 
 please consult the [edi-pi project](https://github.com/lueschem/edi-pi/).
 
-Here is a [sample document](/assets/pdfs/pi2-buster-armhf.pdf) that got created using the edi-pi project.
+You still don't believe that you got rid of this boring job? Here is a
+[sample document](/assets/pdfs/pi2-buster-armhf.pdf) that got automatically created
+within a few seconds.
 
 The document also gives more visibility to the incredible work that the Debian community is doing: Did you count how
 many [common vulnerabilities and exposures](https://cve.mitre.org/) they fixed since December 1, 2019?
