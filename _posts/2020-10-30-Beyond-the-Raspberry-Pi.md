@@ -1,7 +1,7 @@
 ---
 author: matthias_luescher
 author_profile: true
-description: "Many great products start on the Raspberry Pi - and get pushed out into the public with a lousy, hand made and not sustainable setup. Luckily a proper industrialization of the product is easy to do and will save you a lot of troubles in the long run."
+description: "Many great products start on the Raspberry Pi - and get pushed out into the public with a lousy, handmade and not sustainable setup. Luckily a proper industrialization of the product is easy to do and will save you a lot of troubles in the long run."
 comments: true
 title: "Beyond the Raspberry Pi"
 ---
@@ -14,8 +14,8 @@ This is fine as it is only a prototype. The operating system is hand adjusted ac
 product. The software starts to look great and - from a feature point of view - you are almost tempted to sell a minimal
 viable product. But hold on!
 
-Although you have done everything right so far there is a huge risk that you do the same mistake that a lot of
-others have done already.
+Although you have done everything right so far there is a huge risk that you make the same mistake that a lot of
+others have made already.
 
 Take a few days to properly industrialize your product ...
 
@@ -31,12 +31,12 @@ Of course you want to keep the Debian setup because ...
 - ... you learned that there is [long term support](https://wiki.debian.org/LTS) including security updates and
 - ... and you just cannot afford to wait any longer to get your product out into the market.
 
-The good news are that there is an easy way forward. Here is my proposal:
+The good news is that there is an easy way forward. Here is my proposal:
 
 Rugged Hardware
 ---------------
 
-The environment where you install your embedded device is often more harsh than your office desk. Therefore it makes sense
+The environment where you install your embedded device is often harsher than your office desk. Therefore, it makes sense
 to get a device that can reliably deal with such an environment in 24/7 operation mode. Furthermore you might want to keep the
 hardware diversity low and therefore it makes a lot of sense to buy a device that can still be bought in 10 years.
 
@@ -65,7 +65,7 @@ Reproducible Operating System Setup
 -----------------------------------
 
 Maybe you have started your project with a Raspberry Pi OS Lite image and then manually adjusted it according to your needs.
-Of course you could now rip out the SD card and use the `dd command to reproduce the setup on a bunch of other devices.
+Of course you could now rip out the SD card and use the `dd` command to reproduce the setup on a bunch of other devices.
 However, in the long run this will turn out to be not sustainable.
 
 A single command that produces the entire operating system image in a reproducible manner would be ideal - and this is
@@ -97,7 +97,7 @@ the operating system image you have built above comes with exactly this function
 
 It makes use of [Mender](https://mender.io/) for robust A/B based updates. While running the OS from the A partition
 you can stream a new OS version onto the B partition. Once this is done the device gets rebooted and will start from the B
-partition. If the B partition boots properly, then you are fine and you just got rid of all the upgrade history. 
+partition. If the B partition boots properly, then you are fine, and you just got rid of all the upgrade history. 
 If something goes wrong, then the system will reboot again and revert to the A partition.
 
 Configurations that shall be sticky can be backed up to the data partition and get restored from there. Mender supports this
@@ -106,7 +106,7 @@ through [state scripts](https://docs.mender.io/artifact-creation/state-scripts).
 Digital Twin for Development
 ----------------------------
 
-Sure - you can do the development of your application on the Raspberry Pi. But after some time you will get bored as it is still a
+Sure - you can do the development of your application on the Raspberry Pi. But after some time, you will get bored as it is still a
 lot faster to develop on your AMD Ryzen or Intel Core i7. This is exactly the reason why [edi](https://www.get-edi.io)
 comes with the "digital twin" offering:
 
