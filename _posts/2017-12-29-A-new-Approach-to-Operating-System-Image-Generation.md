@@ -43,6 +43,11 @@ and install it on Ubuntu Bionic:
 sudo dpkg -i mender-artifact*.deb
 ```
 
+| Update - Debian Buster/Ubuntu Focal - 10. November 2020 |
+| --- |
+| Starting from Debian Buster and Ubuntu Focal you can install mender-artifact as follows: `sudo apt install mender-artifact` |
+
+
 You are now ready to generate a minimal pure Debian buster arm64
 image for the Raspberry Pi 3 using a single command:
 
