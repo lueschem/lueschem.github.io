@@ -211,13 +211,19 @@ target system:
 aarch64-linux-gnu-g++ hello.cpp -o hello-pi
 ```
 
-And we deploy it to our Raspberry Pi:
+Next we leave the cross development container:
 
 ``` bash
-scp hello-pi pi@IP_ADDRESS:
+exit
 ```
 
-And run it there:
+And we deploy the application to our Raspberry Pi:
+
+``` bash
+scp ~/edi-workspace/hello-pi/hello-pi pi@IP_ADDRESS:
+```
+
+Finally we run it there:
 
 ``` bash
 ssh pi@IP_ADDRESS
