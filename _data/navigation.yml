@@ -4,6 +4,8 @@ main:
     url: https://docs.get-edi.io/en/latest/getting_started.html
   - title: "Documentation"
     url: https://docs.get-edi.io/
+  - title: "Hardware"
+    url: https://docs.get-edi.io/en/latest/hardware.html
   - title: "Source Code"
     url: https://github.com/lueschem/edi
   - title: "Blog"
