@@ -130,7 +130,7 @@ embedded community could be blamed for is that there are (too) many options:
 
 - [Elbe](https://elbe-rfs.org/): Debian based E.mbedded L.inux B.uild E.nvironment.
 - [Apertis](https://www.apertis.org/): Collaborative OS platform for products.
-- [ISAR](https://github.com/ilbers/isar): Integration System for Automated Root filesystem generation. Isar is also used
+- [ISAR](http://github.com/ilbers/isar): Integration System for Automated Root filesystem generation. Isar is also used
   by [Siemens Omni OS](https://www.plm.automation.siemens.com/global/en/products/embedded/omni-os.html).
 - [edi](https://www.get-edi.io/): Embedded Development Infrastructure.
   My favourite because of [Ansible](https://www.ansible.com/) and the digital twin approach - but honestly, I am biased.
@@ -171,7 +171,7 @@ If this long term support is beneficial for your project too, then you should jo
 
 If you need personalized help, I am sure you will get good support from companies like
 [Linutronix](https://linutronix.de/en/dienstleistung/ide_build-tools_elbe-debian.php),
-[Ilbers](https://www.ilbers.de/en/isar.html) or
+[Ilbers](http://www.ilbers.de/en/isar.html) or
 [Siemens (formerly Mentor Graphics)](https://www.plm.automation.siemens.com/global/en/products/embedded/omni-os.html).
 
 Verdict: [Debian](https://www.debian.org/) has a support ecosystem that has attracted many big players over the past
