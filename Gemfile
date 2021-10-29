@@ -9,3 +9,5 @@ group :jekyll_plugins do
   gem "jekyll-feed"
   gem "jemoji"
 end
+
+gem "jekyll", "~> 3.7"
