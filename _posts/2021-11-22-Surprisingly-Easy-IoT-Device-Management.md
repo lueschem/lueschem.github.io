@@ -143,7 +143,7 @@ Conclusion
 
 The above example shows how easy a headless Raspberry Pi 4 got transformed into a kiosk terminal.
 Needless to say that the kiosk terminal was just an example and that the same headless Raspberry Pi 4
-could be easily transformed into something else by just modifying the parameters given in step 1.
+could be transformed into something else by just modifying the parameters given in step 1.
 The backend setup is lightweight, scalable, and it reuses powerful tools that are already
 familiar to the developers.
 
