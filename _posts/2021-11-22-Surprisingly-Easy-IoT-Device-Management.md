@@ -101,7 +101,7 @@ Ansible (Step 4+5)
 ------------------
 
 Now that the Ansible playbook and all the roles (here it is just one role) are present on the device,
-the command `ansible-playbook` gets used to apply the playbook on the device itself:
+the command `ansible-playbook` gets used to apply the playbook
 
 ``` yaml
 ---
@@ -112,6 +112,8 @@ the command `ansible-playbook` gets used to apply the playbook on the device its
       become: true
       become_user: root
 ```
+
+on the device itself.
 
 The role ansible-kiosk will then install the required packages such as `xserver-xorg`, `openbox`
 and `chromium`, configure `systemd`, autologin and `openbox`. Thanks to
