@@ -39,7 +39,7 @@ git (Step 3)
 ------------
 
 When Mender [applies the configuration](https://docs.mender.io/add-ons/configure/device-integration)
-to the device it calls hook scripts in a `.d` folder. Our hooks script looks like this:
+to the device it calls hook scripts in a `.d` folder. Our hook script looks like this:
 
 ``` bash
 #!/bin/bash
