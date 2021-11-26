@@ -153,6 +153,6 @@ refactoring of [upcoming Ansible](https://packages.debian.org/experimental/ansib
 [pycryptodome](https://packages.debian.org/bookworm/python3-pycryptodome) releases will help to
 significantly shrink the size of the update image again.
 
-If you would like to try out this GitOps ready setup right now then please use
-[this branch](https://github.com/lueschem/edi-pi/tree/mender_3.1.0_gitops) of the
-[edi-pi setup](https://github.com/lueschem/edi-pi).
+If you would like to try out this GitOps ready setup right now then clone the
+[edi-pi repository](https://github.com/lueschem/edi-pi) to get started (the image build command is
+`sudo edi -v image create pi4-bullseye-arm64-gitops.yml`).
