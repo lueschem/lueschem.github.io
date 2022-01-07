@@ -8,6 +8,7 @@ group :jekyll_plugins do
   gem "jekyll-gist"
   gem "jekyll-feed"
   gem "jemoji"
+  gem "jekyll-include-cache"
 end
 
 gem "jekyll", "~> 3.7"
