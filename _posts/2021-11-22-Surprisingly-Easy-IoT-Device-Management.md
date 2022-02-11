@@ -29,6 +29,7 @@ not contain device specific data and can be reused on other devices that shall a
 kiosk terminal.
 * `playbook_version`: The git branch, tag or hash of the playbook that shall be used. Prior to merging
 modifications to `main` a development branch can be tested on a test device.
+* `playbook_needs_reboot`: This tells the device to reboot after the playbook has been applied.
 * `kiosk_url`: The web page that shall be displayed full screen on the kiosk terminal.
 
 This is all - when hitting the "SAVE AND APPLY TO DEVICE" button this data gets transferred to the
