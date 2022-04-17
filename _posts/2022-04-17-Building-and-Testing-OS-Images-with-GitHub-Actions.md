@@ -9,20 +9,20 @@ title: "Building and Testing OS Images with GitHub Actions"
 Self-hosted Runner
 ------------------
 
-![Mender Configure](/assets/images/blog/CICDRunnerConfig.png){:class="img-responsive"}
-
 ![Runner Setup](/assets/images/blog/CICDGitHubRunner.png){:class="img-responsive"}
 
+![Mender Configure](/assets/images/blog/CICDRunnerConfig.png){:class="img-responsive"}
+
 ![Debug Terminal](/assets/images/blog/CICDRunnerTerminal.png){:class="img-responsive"}
+
+![Registered Runner](/assets/images/blog/CICDRegisteredRunner.png){:class="img-responsive"}
 
 OS Build and Test Workflow
 --------------------------
 
-![Run Workflow](/assets/images/blog/CICDRunWorkflow.png){:class="img-responsive"}
-
 ![Workflow Setup](/assets/images/blog/CICDGitHubActionsOSWorkflow.png){:class="img-responsive"}
 
-![Workflow Summary](/assets/images/blog/CICDWorkflowSummary.png){:class="img-responsive"}
+![Run Workflow](/assets/images/blog/CICDRunWorkflow.png){:class="img-responsive"}
 
 ``` python
 def test_systemd_overall_status(host):
@@ -53,6 +53,8 @@ def test_resize_completion(host):
 def test_mountpoints(host, mountpoint):
     assert host.mount_point(mountpoint).exists
 ```
+
+![Workflow Summary](/assets/images/blog/CICDWorkflowSummary.png){:class="img-responsive"}
 
 Conclusion
 ----------
