@@ -70,9 +70,9 @@ social:
 
 # Analytics
 analytics:
-  provider               : "google-universal"
+  provider               : "google-gtag"
   google:
-    tracking_id          : "UA-89099469-1"
+    tracking_id          : "G-D9E01TWDZK"
     anonymize_ip         : true
 
 
