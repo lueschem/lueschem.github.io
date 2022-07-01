@@ -52,7 +52,7 @@ at all.
 The Fleet Management Repository
 -------------------------------
 
-The [fleet management repository](https://github.com/lueschem/edi-fleet) is designed to be operated with the above fleet
+The [fleet management repository](https://github.com/lueschem/edi-cd) is designed to be operated with the above fleet
 setup:
 
 ![Fleet Repository](/assets/images/blog/fleet-repository.png){:class="img-responsive"}
@@ -74,16 +74,16 @@ device.
 The Workflow
 ------------
 
-Let's take a closer look at the [fleet management repository](https://github.com/lueschem/edi-fleet):
+Let's take a closer look at the [fleet management repository](https://github.com/lueschem/edi-cd):
 
 ![Fleet Workflow](/assets/images/blog/fleet-workflow.png){:class="img-responsive"}
 
 The following components are part of the repository:
 
-- An [inventory](https://github.com/lueschem/edi-fleet/blob/main/inventory.yml) describing the fleet.
-- Individual [device configurations](https://github.com/lueschem/edi-fleet/tree/main/host_vars).
-- An [Ansible playbook](https://github.com/lueschem/edi-fleet/blob/main/manage-fleet.yml) with three roles.
-- A [GitHub actions workflow](https://github.com/lueschem/edi-fleet/blob/main/.github/workflows/update-fleet.yml). The
+- An [inventory](https://github.com/lueschem/edi-cd/blob/main/inventory.yml) describing the fleet.
+- Individual [device configurations](https://github.com/lueschem/edi-cd/tree/main/host_vars).
+- An [Ansible playbook](https://github.com/lueschem/edi-cd/blob/main/manage-fleet.yml) with three roles.
+- A [GitHub actions workflow](https://github.com/lueschem/edi-cd/blob/main/.github/workflows/update-fleet.yml). The
 job of the workflow is to execute the Ansible playbook.
 
 The playbook is fairly simple but slightly deviates from a standard Ansible playbook. The facts are not gathered from
@@ -97,8 +97,8 @@ check the progress of the fleet update.
 Scaling the Solution for Large Fleets
 -------------------------------------
 
-For the sake of simplicity the [inventory](https://github.com/lueschem/edi-fleet/blob/main/inventory.yml) and the
-[device configurations](https://github.com/lueschem/edi-fleet/tree/main/host_vars) are directly part of the git
+For the sake of simplicity the [inventory](https://github.com/lueschem/edi-cd/blob/main/inventory.yml) and the
+[device configurations](https://github.com/lueschem/edi-cd/tree/main/host_vars) are directly part of the git
 repository. When dealing with 100k+ devices then managing the inventory and the individual configurations within a git
 repository will become cumbersome. Therefore, the inventory and the storing of the individual configurations should be
 offloaded to a dedicated system. Given that this dedicated system has a decent API it is very easy to integrate it into

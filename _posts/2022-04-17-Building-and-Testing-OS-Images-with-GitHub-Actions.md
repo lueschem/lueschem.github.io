@@ -49,14 +49,14 @@ might be useful:
 ![Debug Terminal](/assets/images/blog/CICDRunnerTerminal.png){:class="img-responsive"}
 
 However - once everything is properly setup - nothing should go wrong anymore and the self-hosted runner will connect
-to the edi-ci-cd GitHub repository:
+to the edi-ci GitHub repository:
 
 ![Registered Runner](/assets/images/blog/CICDRegisteredRunner.png){:class="img-responsive"}
 
-Please note that the edi-ci-cd project is a private repository according to the
+Please note that the edi-ci project is a private repository according to the
 [GitHub security recommendation](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners#self-hosted-runner-security).
 In order to still make the setup transparent, I provide the cloned repository
-[edi-ci-cd-public](https://github.com/lueschem/edi-ci-cd-public).
+[edi-ci-public](https://github.com/lueschem/edi-ci-public).
 
 As a bonus even a complete OS update on the runner is possible and the whole setup will get re-applied thanks to
 [this commit](https://github.com/lueschem/edi-pi/commit/a01b1fe9832f5de46687aefcfcce05676caf66a1).
@@ -65,7 +65,7 @@ OS Build and Test Workflow
 --------------------------
 
 Using the self-hosted runner we are now able to trigger our
-[OS build, dispatch and test workflow](https://github.com/lueschem/edi-ci-cd-public/blob/main/.github/workflows/os-deployment.yml):
+[OS build, dispatch and test workflow](https://github.com/lueschem/edi-ci-public/blob/main/.github/workflows/os-deployment.yml):
 
 ![Workflow Setup](/assets/images/blog/CICDGitHubActionsOSWorkflow.png){:class="img-responsive"}
 
@@ -75,11 +75,11 @@ Mender device id) &#9312;:
 
 ![Run Workflow](/assets/images/blog/CICDRunWorkflow.png){:class="img-responsive"}
 
-The job will then be sent to our self-hosted runner &#9313;. The runner will check out the source code of edi-ci-cd and
+The job will then be sent to our self-hosted runner &#9313;. The runner will check out the source code of edi-ci and
 the specified edi project configuration (here [edi-cl](https://github.com/lueschem/edi-cl)) &#9314;. edi will then take
 care of building the specified OS artifact (here `iot-gate-imx8-bullseye-arm64.yml`) from scratch. During this
 process a lot of Debian packages will get fetched from various Debian repositories &#9315;. Using the
-[Mender REST API](https://github.com/lueschem/edi-ci-cd-public/blob/main/mender-api) the resulting Mender OS artifact
+[Mender REST API](https://github.com/lueschem/edi-ci-public/blob/main/mender-api) the resulting Mender OS artifact
 will get uploaded to Mender &#9316; and then dispatched to our chosen device &#9317;.
 
 After our test device got successfully updated, we run some tests that are based on [pytest](https://www.pytest.org/)
@@ -128,7 +128,7 @@ The attentive reader will now ask the legitimate question: Where does the workfl
 
 Using GitHub Actions you have the possibility to store [encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
 
-I have summarized the required secrets [here](https://github.com/lueschem/edi-ci-cd-public/blob/main/README.md).
+I have summarized the required secrets [here](https://github.com/lueschem/edi-ci-public/blob/main/README.md).
 
 Conclusion
 ----------
@@ -143,4 +143,4 @@ already familiar tools ([Ansible](https://www.ansible.com/), [Mender](https://me
 [Debian](https://www.debian.org/), [pytest](https://www.pytest.org/) and [edi](https://www.get-edi.io)) and hardware.
 
 It should also be fairly easy to use [Jenkins](https://www.jenkins.io/) or [GitLab](https://about.gitlab.com/) instead
-of [GitHub Actions](https://github.com/features/actions). 
+of [GitHub Actions](https://github.com/features/actions).
