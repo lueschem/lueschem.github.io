@@ -70,7 +70,7 @@ Conclusion
 The Debian community does a fantastic job in juggling with close to 60k packages! Debian testing is pretty stable -
 actually stable enough that Google decided to operate
 [some desktop machines](https://cloud.google.com/blog/topics/developers-practitioners/how-google-got-to-rolling-linux-releases-for-desktops)
-based on this rolling release. In their post the also made the following statement: 
+based on this rolling release. In their post they also made the following statement:
 "Our journey has ultimately reinforced our belief that incremental changes are better manageable than big bang
 releases." I couldn't agree more!
 The automation I did for the edi project enabled me to follow the fast pace of a rolling release. If I started a new
