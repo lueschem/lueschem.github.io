@@ -34,7 +34,7 @@ affected devices. In fact, I am now able to do continuous integration of my imag
 Implementation
 --------------
 
-To get things going I created a [bookworm branch on edi-pi](https://github.com/lueschem/edi-pi/tree/bookworm). I
+To get things going I created a [bookworm (now master) branch on edi-pi](https://github.com/lueschem/edi-pi). I
 refactored  the setup quite a bit in order to simplify future upgrades. For the Raspberry Pi 4 I am currently using a
 kernel that is based on the [source code provided by the Raspberry Pi foundation](https://github.com/raspberrypi/linux).
 A [build job](https://github.com/lueschem/edi-ci-public/actions/workflows/kernel-build-rpi4.yml) does build and upload
