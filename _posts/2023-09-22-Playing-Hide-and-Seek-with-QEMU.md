@@ -50,7 +50,7 @@ chroot: failed to run command ‘/debootstrap/debootstrap’: No such file or di
 
 Failure!
 
-But wait a second '/debootstrap/debootstrap' is there:
+But wait a second - '/debootstrap/debootstrap' is there:
 
 ``` bash
 ml@amd64-u1804:~$ file ${debootstrap_dir}/debootstrap/debootstrap
@@ -131,6 +131,7 @@ Let's repeat the same procedure on Ubuntu 22.04:
 ml@amd64-u2204:~$ sudo apt-get install debootstrap qemu-user-static
 ml@amd64-u2204:~$ debootstrap_dir=buster-arm64
 ml@amd64-u2204:~$ sudo debootstrap --arch arm64 --foreign buster ${debootstrap_dir} http://deb.debian.org/debian
+ml@amd64-u2204:~$ sudo chroot ${debootstrap_dir} /debootstrap/debootstrap --second-stage
 ```
 
 Success! What the heck? We did not copy QEMU into the minimal root file system yet. Where is QEMU hiding? How did the
