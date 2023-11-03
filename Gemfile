@@ -11,6 +11,6 @@ group :jekyll_plugins do
   gem "jekyll-include-cache"
 end
 
-gem "jekyll", "~> 3.7"
+gem "jekyll", "~> 3.9.3"
 
-gem "webrick", "~> 1.7"
+gem "webrick", "~> 1.8.1"
