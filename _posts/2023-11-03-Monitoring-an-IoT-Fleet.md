@@ -134,7 +134,7 @@ The `modify` filter adds the hostname to each record:
     add hostname ${HOSTNAME}
 ```
 
-The host name can be used to determine the origin of the data set when retrieving data from the InfluxDB database.
+The hostname can be used to determine the origin of the data set when retrieving data from the InfluxDB database.
 
 The `throttle` filter ensures that the cloud does not suffer from a DDoS attack if systemd services constantly report
 problems:
@@ -171,7 +171,7 @@ The `influxdb` output plugin ensures that all recorded data is sent to the Influ
 The above setup takes care of a single device. However, we want to provision the setup to many devices or even the
 entire fleet. To automate things, I wrote an Ansible 
 [role that installs fluentbit](https://github.com/lueschem/fluentbit_installer). The role is run by an Ansible
-[edge-playbook](https://github.com/lueschem/edge-playbook) as soon as the feature flag `monitoring_enabled` is set to
+[playbook](https://github.com/lueschem/edge-playbook) as soon as the feature flag `monitoring_enabled` is set to
 `true`. The configuration of each IoT device can be customized individually. Each device is handled as follows
 according to its given configuration:
 
