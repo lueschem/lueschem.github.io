@@ -116,7 +116,7 @@ with Ansible roles and collections. In our configuration the collection
 3. The last processing step uses `postprocessing_commands` to turn the container root file system into whatever
 artifacts we need.
 
-![Workflow v2](/assets/images/blog/workflow-v2.png){:class="img-responsive"}
+[![Workflow v2](/assets/images/blog/workflow-v2.png){:class="img-responsive"}](/assets/images/blog/workflow-v2.png)
 
 # Modifications and Debugging
 
@@ -148,7 +148,7 @@ The `--recursive-clean 1` is especially helpful as it does not delete the Builda
 `edi -v project make pi4-gitops-v2.yml` will then not have to re-build and re-configure the entire container. Instead it
 will use the existing one. The assumption here is that the Ansible playbook is idempotent and can be re-applied to the same
 Buildah container. If this is not the case e.g. due to a modification, the container can also get erased using
-`edi -v project make --recursive-clean 1 pi4-gitops-v2.yml`.
+`edi -v project make --recursive-clean 2 pi4-gitops-v2.yml`.
 
 In case the playbook fails at a certain step, we can fix it and jump in again in the middle of the playbook:
 
