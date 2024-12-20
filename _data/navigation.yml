@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Getting Started"
-    url: https://docs.get-edi.io/en/latest/getting_started.html
+    url: https://docs.get-edi.io/en/latest/workflow_selection.html
   - title: "Documentation"
     url: https://docs.get-edi.io/
   - title: "Hardware"
